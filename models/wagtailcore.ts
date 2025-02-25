@@ -1,6 +1,11 @@
 import { z } from 'zod';
 
-// Base meta schema (shared fields)
+// Utility function to remove origin from URL
+const removeOrigin = (url: string): string => {
+  return url.replace(/^(?:https?:\/\/[^\/]+)?/, '');
+};
+
+// Base meta fields schema (without transform)
 const baseMetaSchema = z.object({
   type: z.string(),
   detail_url: z.string(),
@@ -8,18 +13,31 @@ const baseMetaSchema = z.object({
 });
 
 // Parent meta schema (subset of fields)
-const parentMetaSchema = baseMetaSchema;
+const parentMetaSchema = baseMetaSchema.transform((data) => ({
+  ...data,
+  // Remove origin from html_url to get the path
+  html_path: removeOrigin(data.html_url),
+}));
 
 // Full meta schema (all fields)
-const pageMetaSchema = baseMetaSchema.extend({
-  slug: z.string(),
-  show_in_menus: z.boolean(),
-  seo_title: z.string(),
-  search_description: z.string(),
-  first_published_at: z.string().nullable(),
-  alias_of: z.number().nullable(),
-  locale: z.string(),
-});
+const pageMetaSchema = baseMetaSchema
+  .extend({
+    slug: z.string(),
+    show_in_menus: z.boolean(),
+    seo_title: z.string(),
+    search_description: z.string(),
+    first_published_at: z.string().nullable(),
+    alias_of: z.number().nullable(),
+    locale: z.string(),
+    parent: z
+      .lazy(() => parentPageSchema)
+      .nullable()
+      .optional(),
+  })
+  .transform((data) => ({
+    ...data,
+    html_path: removeOrigin(data.html_url),
+  }));
 
 // Base page schema (without meta to avoid circular reference)
 const basePageSchema = z.object({
@@ -34,9 +52,7 @@ const parentPageSchema = basePageSchema.extend({
 
 // Full page schema
 const pageSchema = basePageSchema.extend({
-  meta: pageMetaSchema.extend({
-    parent: parentPageSchema.nullable().optional(),
-  }),
+  meta: pageMetaSchema,
 });
 
 // Export schemas
