@@ -20,7 +20,7 @@ function getSchemaFields(schema: ReturnType<typeof getSchema>): string[] {
         const relationFields = Object.keys(innerSchema.shape).filter(
           (field) => field !== 'meta',
         );
-        // Include meta's fields sot
+        // Include meta's fields
         if ('meta' in innerSchema.shape) {
           const metaSchema = innerSchema.shape.meta;
           const innerMetaSchema =
@@ -30,7 +30,7 @@ function getSchemaFields(schema: ReturnType<typeof getSchema>): string[] {
           if (innerMetaSchema instanceof z.ZodObject) {
             relationFields.push(
               ...Object.keys(innerMetaSchema.shape).filter(
-                // Parent is not included in the meta of a related page
+                // Always exclude parent field from relations
                 (field) => field !== 'parent',
               ),
             );
@@ -45,14 +45,18 @@ function getSchemaFields(schema: ReturnType<typeof getSchema>): string[] {
     }
   }
 
-  // Add top-level meta fields
+  // Add top-level meta fields, excluding parent
   if ('meta' in schema.shape) {
     const metaSchema = schema.shape.meta;
     const innerMetaSchema =
       metaSchema instanceof z.ZodNullable ? metaSchema.unwrap() : metaSchema;
 
     if (innerMetaSchema instanceof z.ZodObject) {
-      fields.push(...Object.keys(innerMetaSchema.shape));
+      fields.push(
+        ...Object.keys(innerMetaSchema.shape).filter(
+          (field) => field !== 'parent',
+        ),
+      );
     }
   }
 
@@ -112,7 +116,8 @@ export class WagtailAPI {
     contentType: CT,
   ): Promise<z.infer<Schema<CT>>> {
     const schema = getSchema(contentType);
-    const fields = getSchemaFields(schema).join(',');
+    // Get base fields and add parent explicitly for detail view
+    const fields = [...getSchemaFields(schema), 'parent'].join(',');
     let id: number = typeof pathOrId === 'number' ? pathOrId : -1;
 
     if (id === -1) {
