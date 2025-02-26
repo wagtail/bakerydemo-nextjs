@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '@picocss/pico/css/pico.classless.pumpkin.min.css';
+import Navigation from '../components/Navigation';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main>{children}</main>
+        <Navigation />
+        <main id="main">{children}</main>
       </body>
     </html>
   );
