@@ -3,10 +3,6 @@ import type { PageComponentProps } from './types';
 import LocationCard from '@/components/LocationCard';
 import api from '@/lib/api';
 
-export interface LocationsIndexPageProps {
-  page: locations.LocationsIndexPage;
-}
-
 export default async function LocationsIndexPage({
   page,
 }: PageComponentProps<locations.LocationsIndexPage>) {

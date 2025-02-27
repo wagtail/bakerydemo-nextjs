@@ -3,10 +3,6 @@ import type { PageComponentProps } from './types';
 import BreadCard from '@/components/BreadCard';
 import api from '@/lib/api';
 
-interface BreadsIndexPageProps {
-  page: breads.BreadsIndexPage;
-}
-
 export default async function BreadsIndexPage({
   page,
 }: PageComponentProps<breads.BreadsIndexPage>) {

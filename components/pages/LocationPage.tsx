@@ -2,10 +2,6 @@ import type { locations } from '@/models';
 import type { PageComponentProps } from './types';
 import Image from 'next/image';
 
-export interface LocationPageProps {
-  page: locations.LocationPage;
-}
-
 export default async function LocationPage({
   page,
 }: PageComponentProps<locations.LocationPage>) {

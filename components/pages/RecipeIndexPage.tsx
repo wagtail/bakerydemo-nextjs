@@ -3,10 +3,6 @@ import type { PageComponentProps } from './types';
 import BlogCard from '@/components/BlogCard';
 import api from '@/lib/api';
 
-export interface RecipeIndexPageProps {
-  page: recipes.RecipeIndexPage;
-}
-
 export default async function RecipeIndexPage({
   page,
 }: PageComponentProps<recipes.RecipeIndexPage>) {

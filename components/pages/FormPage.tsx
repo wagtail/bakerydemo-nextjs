@@ -1,10 +1,6 @@
 import type { base } from '@/models';
 import type { PageComponentProps } from './types';
 
-export interface FormPageProps {
-  page: base.FormPage;
-}
-
 export default async function FormPage({
   page,
 }: PageComponentProps<base.FormPage>) {

@@ -2,10 +2,6 @@ import type { breads } from '@/models';
 import type { PageComponentProps } from './types';
 import Image from 'next/image';
 
-export interface BreadPageProps {
-  page: breads.BreadPage;
-}
-
 export default async function BreadPage({
   page,
 }: PageComponentProps<breads.BreadPage>) {

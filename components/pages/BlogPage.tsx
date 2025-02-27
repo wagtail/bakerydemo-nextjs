@@ -3,10 +3,6 @@ import type { PageComponentProps } from './types';
 import { formatDate } from '@/lib/format';
 import Image from 'next/image';
 
-export interface BlogPageProps {
-  page: blog.BlogPage;
-}
-
 export default async function BlogPage({
   page,
 }: PageComponentProps<blog.BlogPage>) {

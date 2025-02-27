@@ -1,10 +1,6 @@
 import type { base } from '@/models';
 import type { PageComponentProps } from './types';
 
-export interface HomePageProps {
-  page: base.HomePage;
-}
-
 export default async function HomePage({
   page,
 }: PageComponentProps<base.HomePage>) {
