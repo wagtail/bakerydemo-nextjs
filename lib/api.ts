@@ -1,20 +1,56 @@
 import { type ContentType, type Schema, getSchema } from '@/models';
 import { z } from 'zod';
 
+// Helper to get the underlying schema, bypassing transforms
+const getBaseSchema = (schema: z.ZodTypeAny): z.ZodObject<z.ZodRawShape> => {
+  if (schema instanceof z.ZodEffects) {
+    return getBaseSchema(schema.innerType());
+  }
+  if (schema instanceof z.ZodNullable) {
+    return getBaseSchema(schema.unwrap());
+  }
+  return schema as z.ZodObject<z.ZodRawShape>;
+};
+
+// Helper to get relation fields recursively
+const getRelationFields = (schema: z.ZodTypeAny): string[] => {
+  const baseSchema = getBaseSchema(schema);
+  const fields: string[] = [];
+
+  // Get all fields except meta
+  for (const [fieldName, fieldSchema] of Object.entries(baseSchema.shape)) {
+    if (fieldName === 'meta') continue;
+
+    const innerSchema =
+      fieldSchema instanceof z.ZodNullable ? fieldSchema.unwrap() : fieldSchema;
+
+    if (innerSchema instanceof z.ZodObject && 'id' in innerSchema.shape) {
+      // This is a relation, get its fields recursively
+      const relationFields = getRelationFields(innerSchema);
+      fields.push(`${fieldName}(${relationFields.join(',')})`);
+    } else {
+      fields.push(fieldName);
+    }
+  }
+
+  // Include meta's fields
+  if ('meta' in baseSchema.shape) {
+    const metaSchema = baseSchema.shape.meta;
+    const baseMetaSchema = getBaseSchema(metaSchema);
+
+    fields.push(
+      ...Object.keys(baseMetaSchema.shape).filter(
+        (field) => field !== 'parent' && field !== 'html_path',
+      ),
+    );
+  }
+
+  return fields;
+};
+
 // Helper to get field names from a schema, including nested fields for relations
 function getSchemaFields(schema: ReturnType<typeof getSchema>): string[] {
   const fields: string[] = [];
-
-  // Helper to get the underlying schema, bypassing transforms
-  const getBaseSchema = (schema: z.ZodTypeAny): z.ZodObject<z.ZodRawShape> => {
-    if (schema instanceof z.ZodEffects) {
-      return getBaseSchema(schema.innerType());
-    }
-    if (schema instanceof z.ZodNullable) {
-      return getBaseSchema(schema.unwrap());
-    }
-    return schema as z.ZodObject<z.ZodRawShape>;
-  };
 
   const baseSchema = getBaseSchema(schema);
 
@@ -22,40 +58,51 @@ function getSchemaFields(schema: ReturnType<typeof getSchema>): string[] {
   for (const [fieldName, fieldSchema] of Object.entries(baseSchema.shape)) {
     if (fieldName === 'meta') continue;
 
-    // If this is a nullable field, get the inner schema
     const innerSchema =
       fieldSchema instanceof z.ZodNullable ? fieldSchema.unwrap() : fieldSchema;
 
-    // For object schemas, check if it's a relation (has an id field)
-    const baseInnerSchema = getBaseSchema(innerSchema);
-    if (baseInnerSchema instanceof z.ZodObject) {
-      if ('id' in baseInnerSchema.shape) {
-        // Get all fields except meta, which is not a real field itself
-        const relationFields = Object.keys(baseInnerSchema.shape).filter(
-          (field) => field !== 'meta',
-        );
-        // Include meta's fields
-        if ('meta' in baseInnerSchema.shape) {
-          const metaSchema = baseInnerSchema.shape.meta;
-          const baseMetaSchema = getBaseSchema(metaSchema);
-
-          relationFields.push(
-            ...Object.keys(baseMetaSchema.shape).filter(
-              // Exclude parent field and transformed fields from relations
-              (field) => field !== 'parent' && field !== 'html_path',
-            ),
-          );
+    if (innerSchema instanceof z.ZodArray) {
+      // For arrays, check the element schema
+      const elementSchema = innerSchema.element;
+      // If the array element is an object, check its fields for relations
+      if (elementSchema instanceof z.ZodObject) {
+        const elementFields = [];
+        for (const [elemField, elemSchema] of Object.entries(
+          elementSchema.shape,
+        )) {
+          if (elemField === 'meta') continue;
+          const innerElemSchema =
+            elemSchema instanceof z.ZodNullable
+              ? elemSchema.unwrap()
+              : elemSchema;
+          if (
+            innerElemSchema instanceof z.ZodObject &&
+            'id' in innerElemSchema.shape
+          ) {
+            // This is a relation within the array element
+            const relationFields = getRelationFields(innerElemSchema);
+            elementFields.push(`${elemField}(${relationFields.join(',')})`);
+          } else {
+            elementFields.push(elemField);
+          }
         }
-        fields.push(`${fieldName}(${relationFields.join(',')})`);
+        fields.push(`${fieldName}(${elementFields.join(',')})`);
       } else {
         fields.push(fieldName);
       }
+    } else if (
+      innerSchema instanceof z.ZodObject &&
+      'id' in innerSchema.shape
+    ) {
+      // Direct relation
+      const relationFields = getRelationFields(innerSchema);
+      fields.push(`${fieldName}(${relationFields.join(',')})`);
     } else {
       fields.push(fieldName);
     }
   }
 
-  // Add top-level meta fields, excluding parent and transformed fields
+  // Add top-level meta fields
   if ('meta' in baseSchema.shape) {
     const metaSchema = baseSchema.shape.meta;
     const baseMetaSchema = getBaseSchema(metaSchema);
