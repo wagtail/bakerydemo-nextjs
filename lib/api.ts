@@ -180,6 +180,9 @@ export class WagtailAPI {
         `/api/v2/pages/find/?html_path=${pathOrId}&fields=${fields}`,
       );
       const page = getSchema('wagtailcore.Page').parse(data);
+      // Return as-is for the base Page type as we don't need any extra fields
+      if (contentType === 'wagtailcore.Page') return page;
+
       id = page.id as number;
     }
 
