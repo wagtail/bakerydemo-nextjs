@@ -1,10 +1,13 @@
 import type { base } from '@/models';
+import type { PageComponentProps } from './types';
 
 export interface StandardPageProps {
   page: base.StandardPage;
 }
 
-export default async function StandardPage({ page }: StandardPageProps) {
+export default async function StandardPage({
+  page,
+}: PageComponentProps<base.StandardPage>) {
   return (
     <>
       <section>

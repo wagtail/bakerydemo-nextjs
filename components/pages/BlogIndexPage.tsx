@@ -1,5 +1,5 @@
 import type { blog } from '@/models';
-import Link from 'next/link';
+import type { PageComponentProps } from './types';
 import BlogCard from '@/components/BlogCard';
 import api from '@/lib/api';
 
@@ -7,16 +7,11 @@ interface BlogSearchParams {
   tags?: string;
 }
 
-export interface BlogIndexPageProps {
-  page: blog.BlogIndexPage;
-  searchParams: Promise<BlogSearchParams>;
-}
-
 export default async function BlogIndexPage({
   page,
   searchParams,
-}: BlogIndexPageProps) {
-  const { tags: searchTags } = await searchParams;
+}: PageComponentProps<blog.BlogIndexPage>) {
+  const { tags: searchTags } = (await searchParams) as BlogSearchParams;
 
   // Get blog posts that are children of the blog index page
   const { items: posts } = await api.getPages('blog.BlogPage', {
