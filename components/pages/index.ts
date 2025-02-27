@@ -9,16 +9,18 @@ import type { PageComponentProps } from './types';
 import LocationsIndexPage from './LocationsIndexPage';
 import LocationPage from './LocationPage';
 import RecipeIndexPage from './RecipeIndexPage';
+import GalleryPage from './GalleryPage';
 
 const pageComponents = {
   'base.HomePage': HomePage,
   'base.StandardPage': StandardPage,
+  'base.FormPage': FormPage,
+  'base.GalleryPage': GalleryPage,
   'blog.BlogIndexPage': BlogIndexPage,
   'blog.BlogPage': BlogPage,
   'recipes.RecipeIndexPage': RecipeIndexPage,
   'breads.BreadsIndexPage': BreadsIndexPage,
   'breads.BreadPage': BreadPage,
-  'base.FormPage': FormPage,
   'locations.LocationsIndexPage': LocationsIndexPage,
   'locations.LocationPage': LocationPage,
 } as const;
