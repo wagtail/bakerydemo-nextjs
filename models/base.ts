@@ -62,7 +62,10 @@ const formFieldSchema = z.object({
   label: z.string(),
   field_type: z.string(),
   required: z.boolean(),
-  choices: z.string().nullable(),
+  choices: z
+    .string()
+    .nullable()
+    .transform((val) => (val || '').split(',')),
   default_value: z.string().nullable(),
   help_text: z.string().nullable(),
 });
