@@ -5,22 +5,25 @@ const removeOrigin = (url: string): string => {
   return url.replace(/^(?:https?:\/\/[^\/]+)?/, '');
 };
 
-// Base meta fields schema (without transform)
+// Base meta fields schema for all models
 const baseMetaSchema = z.object({
   type: z.string(),
-  detail_url: z.string(),
+  detail_url: z.string().optional(),
+});
+
+const basePageMetaSchema = baseMetaSchema.extend({
   html_url: z.string(),
 });
 
 // Parent meta schema (subset of fields)
-const parentMetaSchema = baseMetaSchema.transform((data) => ({
+const parentMetaSchema = basePageMetaSchema.transform((data) => ({
   ...data,
   // Remove origin from html_url to get the path
   html_path: removeOrigin(data.html_url),
 }));
 
 // Full meta schema (all fields)
-const pageMetaSchema = baseMetaSchema
+const pageMetaSchema = basePageMetaSchema
   .extend({
     slug: z.string(),
     show_in_menus: z.boolean(),
@@ -59,6 +62,7 @@ const pageSchema = basePageSchema.extend({
 const schemas = {
   Page: pageSchema,
   _PageMeta: pageMetaSchema, // not a real model
+  _BaseMeta: baseMetaSchema, // not a real model
 } as const;
 
 export default schemas;

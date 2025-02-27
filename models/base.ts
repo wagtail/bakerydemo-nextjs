@@ -9,22 +9,14 @@ const personSchema = z.object({
   last_name: z.string().max(254),
   job_title: z.string().max(254),
   image: wagtailimages.Image.nullable(),
-  meta: z.object({
-    type: z.string(),
-    detail_url: z.string(),
-    html_url: z.string().nullable(),
-  }),
+  meta: wagtailcore._BaseMeta,
 });
 
 // Footer Text schema
 const footerTextSchema = z.object({
   id: z.number(),
   body: z.string(),
-  meta: z.object({
-    type: z.string(),
-    detail_url: z.string(),
-    html_url: z.string().nullable(),
-  }),
+  meta: wagtailcore._BaseMeta,
 });
 
 // Standard Page schema

@@ -6,33 +6,21 @@ import wagtailimages from './wagtailimages';
 const countrySchema = z.object({
   id: z.number(),
   title: z.string().max(100),
-  meta: z.object({
-    type: z.string(),
-    detail_url: z.string(),
-    html_url: z.string().nullable(),
-  }),
+  meta: wagtailcore._BaseMeta,
 });
 
 // BreadIngredient schema
 const breadIngredientSchema = z.object({
   id: z.number(),
   name: z.string().max(255),
-  meta: z.object({
-    type: z.string(),
-    detail_url: z.string(),
-    html_url: z.string().nullable(),
-  }),
+  meta: wagtailcore._BaseMeta,
 });
 
 // BreadType schema
 const breadTypeSchema = z.object({
   id: z.number(),
   title: z.string().max(255),
-  meta: z.object({
-    type: z.string(),
-    detail_url: z.string(),
-    html_url: z.string().nullable(),
-  }),
+  meta: wagtailcore._BaseMeta,
 });
 
 // BreadPage schema
