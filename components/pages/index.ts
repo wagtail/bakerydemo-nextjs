@@ -1,4 +1,5 @@
 import BlogIndexPage from './BlogIndexPage';
+import BlogPage from './BlogPage';
 import HomePage from './HomePage';
 import StandardPage from './StandardPage';
 import type { PageComponentProps } from './types';
@@ -7,6 +8,7 @@ const pageComponents = {
   'base.HomePage': HomePage,
   'base.StandardPage': StandardPage,
   'blog.BlogIndexPage': BlogIndexPage,
+  'blog.BlogPage': BlogPage,
 } as const;
 
 export type PageComponent = React.ComponentType<PageComponentProps>;
