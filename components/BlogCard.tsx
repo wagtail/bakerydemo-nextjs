@@ -1,6 +1,7 @@
 import type { blog } from '@/models';
 import Link from 'next/link';
 import Image from 'next/image';
+import { formatDate } from '@/lib/format';
 
 interface BlogCardProps {
   blog: blog.BlogPage;
@@ -30,11 +31,7 @@ export default function BlogCard({ blog }: BlogCardProps) {
         <p>
           {blog.date_published && (
             <>
-              {new Date(blog.date_published).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
+              {formatDate(blog.date_published)}
               {blog.blog_person_relationship.length > 0 && ' by '}
             </>
           )}
