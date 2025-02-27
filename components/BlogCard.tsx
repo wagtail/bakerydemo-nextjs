@@ -1,21 +1,26 @@
-import type { blog } from '@/models';
+import type { blog, recipes } from '@/models';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '@/lib/format';
 
 interface BlogCardProps {
-  blog: blog.BlogPage;
+  page: blog.BlogPage | recipes.RecipePage;
 }
 
-export default function BlogCard({ blog }: BlogCardProps) {
+export default function BlogCard({ page }: BlogCardProps) {
+  const isBlog = 'blog_person_relationship' in page;
+  const relation = isBlog
+    ? page.blog_person_relationship
+    : page.recipe_person_relationship;
+
   return (
     <article>
-      {blog.image && (
-        <Link href={`/blog/${blog.meta.slug}`}>
+      {isBlog && page.image && (
+        <Link href={page.meta.html_path}>
           <figure>
             <Image
-              src={blog.image.meta.download_url}
-              alt={blog.image.title}
+              src={page.image.meta.download_url}
+              alt={page.image.title}
               width={320}
               height={240}
               loading="lazy"
@@ -25,20 +30,20 @@ export default function BlogCard({ blog }: BlogCardProps) {
       )}
       <div>
         <h2>
-          <Link href={`/blog/${blog.meta.slug}`}>{blog.title}</Link>
+          <Link href={page.meta.html_path}>{page.title}</Link>
         </h2>
-        {blog.introduction && <p>{blog.introduction}</p>}
+        {page.introduction && <p>{page.introduction}</p>}
         <p>
-          {blog.date_published && (
+          {page.date_published && (
             <>
-              {formatDate(blog.date_published)}
-              {blog.blog_person_relationship.length > 0 && ' by '}
+              {formatDate(page.date_published)}
+              {relation.length > 0 && ' by '}
             </>
           )}
-          {blog.blog_person_relationship.map((rel, index) => (
+          {relation.map((rel, index) => (
             <span key={rel.person.id}>
               {rel.person.first_name} {rel.person.last_name}
-              {index < blog.blog_person_relationship.length - 1 && ', '}
+              {index < relation.length - 1 && ', '}
             </span>
           ))}
         </p>

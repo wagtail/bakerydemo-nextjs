@@ -35,7 +35,7 @@ export default async function BlogIndexPage({
       <section>
         <div>
           {posts.length > 0 ? (
-            posts.map((blog) => <BlogCard key={blog.id} blog={blog} />)
+            posts.map((blog) => <BlogCard key={blog.id} page={blog} />)
           ) : (
             <p>
               Oh, snap. Looks like we were too busy baking to write any blog
