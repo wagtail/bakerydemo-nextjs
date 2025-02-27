@@ -1,16 +1,30 @@
 import type { breads } from '@/models';
 import type { PageComponentProps } from './types';
 import BreadCard from '@/components/BreadCard';
+import Pagination from '@/components/Pagination';
 import api from '@/lib/api';
+
+interface BreadsIndexPageProps
+  extends PageComponentProps<breads.BreadsIndexPage> {
+  searchParams: Promise<{ page: string }>;
+}
 
 export default async function BreadsIndexPage({
   page,
-}: PageComponentProps<breads.BreadsIndexPage>) {
+  searchParams,
+}: BreadsIndexPageProps) {
+  const currentPage = Number((await searchParams).page || '1');
+  const pageSize = 12;
+  const offset = (currentPage - 1) * pageSize;
+
   // Get bread pages that are children of the breads index page
   const { items: breads, meta } = await api.getPages('breads.BreadPage', {
     child_of: page.id.toString(),
-    limit: '12', // Match Django template's pagination check
+    limit: pageSize.toString(),
+    offset: offset.toString(),
   });
+
+  const totalPages = Math.ceil(meta.total_count / pageSize);
 
   return (
     <>
@@ -27,10 +41,13 @@ export default async function BreadsIndexPage({
         )}
       </section>
 
-      {meta.total_count > 12 && (
+      {meta.total_count > pageSize && (
         <section>
-          {/* Pagination component would go here */}
-          <p>Pagination needed</p>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl=""
+          />
         </section>
       )}
     </>
