@@ -11,11 +11,6 @@ const operatingHoursSchema = z.object({
   closed: z.boolean(),
 });
 
-// LocationOperatingHours schema (extends OperatingHours with location relationship)
-const locationOperatingHoursSchema = operatingHoursSchema.extend({
-  location: z.number(), // ID of the related LocationPage
-});
-
 // LocationPage schema
 const locationPageSchema = wagtailcore.Page.extend({
   introduction: z.string(),
@@ -28,7 +23,7 @@ const locationPageSchema = wagtailcore.Page.extend({
       /^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/,
       'Lat Long must be a comma-separated numeric lat and long',
     ),
-  hours_of_operation: z.array(locationOperatingHoursSchema),
+  hours_of_operation: z.array(operatingHoursSchema),
 });
 
 // LocationsIndexPage schema
@@ -40,7 +35,6 @@ const locationsIndexPageSchema = wagtailcore.Page.extend({
 // Export schemas
 const schemas = {
   OperatingHours: operatingHoursSchema,
-  LocationOperatingHours: locationOperatingHoursSchema,
   LocationPage: locationPageSchema,
   LocationsIndexPage: locationsIndexPageSchema,
 } as const;
@@ -50,9 +44,6 @@ export default schemas;
 // Derived TypeScript types
 export namespace locations {
   export type OperatingHours = z.infer<typeof schemas.OperatingHours>;
-  export type LocationOperatingHours = z.infer<
-    typeof schemas.LocationOperatingHours
-  >;
   export type LocationPage = z.infer<typeof schemas.LocationPage>;
   export type LocationsIndexPage = z.infer<typeof schemas.LocationsIndexPage>;
 }
