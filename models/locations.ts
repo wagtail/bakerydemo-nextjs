@@ -16,6 +16,7 @@ const locationPageSchema = wagtailcore.Page.extend({
   introduction: z.string(),
   image: wagtailimages.Image.nullable(),
   body: z.array(z.any()), // StreamField
+  is_open: z.boolean(),
   address: z.string(),
   lat_long: z
     .string()

@@ -7,6 +7,7 @@ import BreadPage from './BreadPage';
 import FormPage from './FormPage';
 import type { PageComponentProps } from './types';
 import LocationsIndexPage from './LocationsIndexPage';
+import LocationPage from './LocationPage';
 
 const pageComponents = {
   'base.HomePage': HomePage,
@@ -17,6 +18,7 @@ const pageComponents = {
   'breads.BreadPage': BreadPage,
   'base.FormPage': FormPage,
   'locations.LocationsIndexPage': LocationsIndexPage,
+  'locations.LocationPage': LocationPage,
 } as const;
 
 export type PageComponent = React.ComponentType<PageComponentProps>;
