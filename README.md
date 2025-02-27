@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wagtail Bakery Demo - Next.js Frontend
+
+This is a highly-experimental headless version of [Wagtail's bakerydemo](https://github.com/wagtail/bakerydemo), built with [Next.js](https://nextjs.org) and Wagtail API v2. It demonstrates how to use Wagtail as a headless CMS with a modern React-based frontend.
+
+## Prerequisites
+
+- A running instance of the [Wagtail bakerydemo](https://github.com/wagtail/bakerydemo) backend
+  - You can use the [api](https://github.com/wagtail/bakerydemo/tree/api) branch for now, which has the necessary `api_fields` added to the models
+- Node.js 22.x or later
 
 ## Getting Started
 
-First, run the development server:
+1. Clone this repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Configure your environment variables:
+
+```bash
+cp .env.example .env.local
+```
+
+Update `.env.local` with your Wagtail backend URL.
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Server-side rendering of Wagtail pages
+- Dynamic routing based on Wagtail page types
+- Support for:
+  - Blog posts
+  - Bread types
+  - Locations
+  - Recipes
+  - Gallery
+- Pagination for listings
+- Image optimization using Next.js Image component
+- Type-safe API integration
+
+## Project Structure
+
+- `components/pages/` - Page type components that correspond to Wagtail page models
+- `lib/` - API utilities and helpers
+- `models/` - Zod schemas and TypeScript interfaces for Wagtail models
+
+## Contributing
+
+While we're not actively seeking contributions, feel free to raise issues or submit pull requests for feedback. This is an experimental project meant to demonstrate the capabilities of Wagtail as a headless CMS with Next.js.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Wagtail Documentation](https://docs.wagtail.org/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Wagtail API v2 Reference](https://docs.wagtail.org/en/stable/advanced_topics/api/index.html)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the [BSD 3-Clause License](LICENSE).
