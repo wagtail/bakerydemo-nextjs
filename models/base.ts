@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
+import blocks from './blocks/base';
 
 // Person schema
 const personSchema = z.object({
@@ -23,7 +24,7 @@ const footerTextSchema = z.object({
 const standardPageSchema = wagtailcore.Page.extend({
   introduction: z.string(),
   image: wagtailimages.Image.nullable(),
-  body: z.array(z.any()), // StreamField - complex structure, simplified here
+  body: blocks.BaseStreamBlock,
 });
 
 // Home Page schema
@@ -32,7 +33,7 @@ const homePageSchema = wagtailcore.Page.extend({
   hero_text: z.string().max(255),
   hero_cta: z.string().max(255),
   hero_cta_link: wagtailcore.Page.nullable(),
-  body: z.array(z.any()), // StreamField
+  body: blocks.BaseStreamBlock,
   promo_image: wagtailimages.Image.nullable(),
   promo_title: z.string().max(255),
   promo_text: z.string().max(1000).nullable(),

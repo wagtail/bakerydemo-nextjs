@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
-
+import blocks from './blocks/base';
 // Country schema
 const countrySchema = z.object({
   id: z.number(),
@@ -27,7 +27,7 @@ const breadTypeSchema = z.object({
 const breadPageSchema = wagtailcore.Page.extend({
   introduction: z.string(),
   image: wagtailimages.Image.nullable(),
-  body: z.array(z.any()), // StreamField
+  body: blocks.BaseStreamBlock,
   origin: countrySchema.nullable(),
   bread_type: breadTypeSchema.nullable(),
   ingredients: z.array(breadIngredientSchema),

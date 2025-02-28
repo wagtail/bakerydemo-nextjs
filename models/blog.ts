@@ -2,6 +2,7 @@ import { z } from 'zod';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
 import base from './base';
+import blocks from './blocks/base';
 
 // BlogPersonRelationship schema
 const blogPersonRelationshipSchema = z.object({
@@ -13,7 +14,7 @@ const blogPersonRelationshipSchema = z.object({
 const blogPageSchema = wagtailcore.Page.extend({
   introduction: z.string(),
   image: wagtailimages.Image.nullable(),
-  body: z.array(z.any()), // StreamField
+  body: blocks.BaseStreamBlock,
   subtitle: z.string(),
   tags: z.array(z.string()),
   date_published: z.string().nullable(), // Date as ISO string
