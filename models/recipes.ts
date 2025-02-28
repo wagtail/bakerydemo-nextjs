@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import wagtailcore from './wagtailcore';
 import base from './base';
-import blocks from './blocks/base';
+import blocks from './blocks';
 
 // RecipePersonRelationship schema
 const recipePersonRelationshipSchema = z.object({
@@ -14,9 +14,9 @@ const recipePageSchema = wagtailcore.Page.extend({
   date_published: z.string().nullable(), // Date as ISO string
   subtitle: z.string().max(255),
   introduction: z.string().max(500),
-  backstory: blocks.BaseStreamBlock,
+  backstory: blocks.base.BaseStreamBlock,
   recipe_headline: z.string().max(120),
-  body: blocks.BaseStreamBlock,
+  body: blocks.recipes.RecipeStreamBlock,
   recipe_person_relationship: z.array(recipePersonRelationshipSchema),
 });
 
