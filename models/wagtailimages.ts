@@ -5,7 +5,7 @@ const imageSchema = z.object({
   title: z.string(),
   meta: z.object({
     type: z.string(),
-    detail_url: z.string(),
+    detail_url: z.string().optional(),
     download_url: z
       .string()
       .transform((url) => `${process.env.NEXT_PUBLIC_WAGTAIL_API_HOST!}${url}`),

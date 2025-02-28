@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
+import blocks from './blocks/base';
 
 // Operating Hours schema
 const operatingHoursSchema = z.object({
@@ -15,7 +16,7 @@ const operatingHoursSchema = z.object({
 const locationPageSchema = wagtailcore.Page.extend({
   introduction: z.string(),
   image: wagtailimages.Image.nullable(),
-  body: z.array(z.any()), // StreamField
+  body: blocks.BaseStreamBlock,
   is_open: z.boolean(),
   address: z.string(),
   lat_long: z

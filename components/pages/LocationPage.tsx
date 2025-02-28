@@ -1,6 +1,7 @@
 import type { locations } from '@/models';
 import type { PageComponentProps } from './types';
 import Image from 'next/image';
+import BaseStreamBlock from '../streamfield/BaseStreamBlock';
 
 export default async function LocationPage({
   page,
@@ -24,11 +25,7 @@ export default async function LocationPage({
       </section>
 
       <section>
-        <div>
-          {page.body.map(({ id, value }) => (
-            <div key={id} dangerouslySetInnerHTML={{ __html: value }} />
-          ))}
-        </div>
+        <BaseStreamBlock blocks={page.body} />
 
         <aside>
           <div>

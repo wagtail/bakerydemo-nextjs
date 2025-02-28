@@ -1,6 +1,7 @@
 import type { breads } from '@/models';
 import type { PageComponentProps } from './types';
 import Image from 'next/image';
+import BaseStreamBlock from '../streamfield/BaseStreamBlock';
 
 export default async function BreadPage({
   page,
@@ -24,11 +25,7 @@ export default async function BreadPage({
       </section>
 
       <section>
-        <div>
-          {page.body.map(({ id, value }) => (
-            <div key={id} dangerouslySetInnerHTML={{ __html: value }} />
-          ))}
-        </div>
+        <BaseStreamBlock blocks={page.body} />
 
         <aside>
           {(page.origin || page.bread_type || page.ingredients.length > 0) && (

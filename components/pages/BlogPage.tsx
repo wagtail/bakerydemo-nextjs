@@ -2,6 +2,7 @@ import type { blog } from '@/models';
 import type { PageComponentProps } from './types';
 import { formatDate } from '@/lib/format';
 import Image from 'next/image';
+import BaseStreamBlock from '../streamfield/BaseStreamBlock';
 
 export default async function BlogPage({
   page,
@@ -45,9 +46,7 @@ export default async function BlogPage({
       </section>
 
       <section>
-        {page.body.map(({ id, value }) => (
-          <div key={id} dangerouslySetInnerHTML={{ __html: value }} />
-        ))}
+        <BaseStreamBlock blocks={page.body} />
 
         {page.tags.length > 0 && (
           <>

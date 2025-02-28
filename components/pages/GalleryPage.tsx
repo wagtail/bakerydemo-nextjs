@@ -2,6 +2,7 @@ import type { base } from '@/models';
 import type { PageComponentProps } from './types';
 import Image from 'next/image';
 import api from '@/lib/api';
+import BaseStreamBlock from '../streamfield/BaseStreamBlock';
 
 export default async function GalleryPage({
   page,
@@ -28,9 +29,7 @@ export default async function GalleryPage({
       </section>
 
       <section>
-        {page.body.map(({ id, value }) => (
-          <div key={id} dangerouslySetInnerHTML={{ __html: value }} />
-        ))}
+        <BaseStreamBlock blocks={page.body} />
       </section>
 
       {images && images.items.length > 0 && (

@@ -1,5 +1,6 @@
 import type { base } from '@/models';
 import type { PageComponentProps } from './types';
+import BaseStreamBlock from '../streamfield/BaseStreamBlock';
 
 export default async function FormPage({
   page,
@@ -8,9 +9,7 @@ export default async function FormPage({
     <>
       <section>
         <h1>{page.title}</h1>
-        {page.body.map(({ id, value }) => (
-          <div key={id} dangerouslySetInnerHTML={{ __html: value }} />
-        ))}
+        <BaseStreamBlock blocks={page.body} />
       </section>
 
       <section>

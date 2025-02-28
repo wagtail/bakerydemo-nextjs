@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import wagtailcore from './wagtailcore';
 import base from './base';
+import blocks from './blocks/base';
 
 // RecipePersonRelationship schema
 const recipePersonRelationshipSchema = z.object({
@@ -13,9 +14,9 @@ const recipePageSchema = wagtailcore.Page.extend({
   date_published: z.string().nullable(), // Date as ISO string
   subtitle: z.string().max(255),
   introduction: z.string().max(500),
-  backstory: z.array(z.any()), // StreamField with block_counts
-  recipe_headline: z.string().max(120), // RichTextField
-  body: z.array(z.any()), // StreamField with RecipeStreamBlock
+  backstory: blocks.BaseStreamBlock,
+  recipe_headline: z.string().max(120),
+  body: blocks.BaseStreamBlock,
   recipe_person_relationship: z.array(recipePersonRelationshipSchema),
 });
 

@@ -1,5 +1,6 @@
 import type { base } from '@/models';
 import type { PageComponentProps } from './types';
+import BaseStreamBlock from '../streamfield/BaseStreamBlock';
 
 export default async function StandardPage({
   page,
@@ -11,9 +12,7 @@ export default async function StandardPage({
         <p>{page.introduction}</p>
       </section>
       <section>
-        {page.body.map(({ id, value }) => (
-          <div key={id} dangerouslySetInnerHTML={{ __html: value }} />
-        ))}
+        <BaseStreamBlock blocks={page.body} />
       </section>
     </>
   );
