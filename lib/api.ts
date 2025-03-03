@@ -220,6 +220,15 @@ export class WagtailAPI {
     };
   }
 
+  async getPreview<CT extends ContentType>(contentType: CT, token: string) {
+    const schema = getSchema(contentType);
+    const fields = getSchemaFields(schema).join(',');
+    const data = await this.fetch<unknown>(
+      `/api/v2/preview/?content_type=${contentType}&token=${token}&fields=${fields}`,
+    );
+    return schema.parse(data);
+  }
+
   /**
    * Get a single image by ID
    */
