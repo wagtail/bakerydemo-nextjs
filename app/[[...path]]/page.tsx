@@ -1,6 +1,7 @@
 import api from '@/lib/api';
 import pages, { type PageComponent } from '@/components/pages';
 import { notFound } from 'next/navigation';
+import { iget } from '@/lib/object';
 
 interface PageProps {
   params: Promise<{ path?: string[] }>;
@@ -20,7 +21,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     const pageType = basicPage.meta.type as keyof typeof pages;
 
     // Check if we have a component for this page type
-    const PageComponent = pages[pageType] as PageComponent;
+    const PageComponent = iget(pages, pageType) as PageComponent;
     if (!PageComponent) {
       console.error(`No component found for page type: ${pageType}`);
       notFound();
