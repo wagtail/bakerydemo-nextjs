@@ -1,7 +1,6 @@
 import api from '@/lib/api';
-import pages, { type PageComponent } from '@/components/pages';
+import { getPageComponent, type PageType } from '@/components/pages';
 import { notFound } from 'next/navigation';
-import { iget } from '@/lib/object';
 
 interface PageProps {
   params: Promise<{ path?: string[] }>;
@@ -18,14 +17,10 @@ export default async function Page({ params, searchParams }: PageProps) {
     const basicPage = await api.getPage(path, 'wagtailcore.Page');
 
     // Get the specific page type from meta
-    const pageType = basicPage.meta.type as keyof typeof pages;
+    const pageType = basicPage.meta.type as PageType;
 
     // Check if we have a component for this page type
-    const PageComponent = iget(pages, pageType) as PageComponent;
-    if (!PageComponent) {
-      console.error(`No component found for page type: ${pageType}`);
-      notFound();
-    }
+    const PageComponent = getPageComponent(pageType);
 
     // Second fetch to get the full page data with the specific type
     const page = await api.getPage(basicPage.id, pageType);
