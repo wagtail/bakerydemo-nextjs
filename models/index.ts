@@ -1,3 +1,4 @@
+import { iget } from '@/lib/object';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
 import base from './base';
@@ -53,6 +54,6 @@ export type ContentType = DottedPaths<Schemas>;
 export type Schema<T extends ContentType> = ValueAtPath<Schemas, T>;
 
 export function getSchema<CT extends ContentType>(contentType: CT): Schema<CT> {
-  const [appLabel, modelName] = contentType.split('.') as [AppLabel, never];
-  return schemas[appLabel][modelName];
+  const [appLabel, modelName] = contentType.split('.') as [AppLabel, string];
+  return iget(schemas[appLabel], modelName);
 }
