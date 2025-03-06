@@ -6,6 +6,7 @@ This is a highly-experimental headless version of [Wagtail's bakerydemo](https:/
 
 - A running instance of the [Wagtail bakerydemo](https://github.com/wagtail/bakerydemo) backend
   - You can use the [api](https://github.com/wagtail/bakerydemo/tree/api) branch for now, which has the necessary `api_fields` added to the models
+  - To test the userbar, you can use [this custom branch of Wagtail](https://github.com/laymonage/wagtail/tree/headless-userbar-2) with some modifications to the userbar code
 - Node.js 22.x or later
 
 ## Getting Started
