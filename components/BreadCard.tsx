@@ -23,6 +23,10 @@ export default function BreadCard({ bread }: BreadCardProps) {
         </Link>
       )}
       <div>
+        {
+          // FIXME: This should've used an h2, but we use h3 to test the
+          // accessibility checker
+        }
         <h3>
           <Link href={`/breads/${bread.meta.slug}`}>{bread.title}</Link>
         </h3>
