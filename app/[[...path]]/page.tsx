@@ -1,10 +1,25 @@
 import api from '@/lib/api';
 import { getPageComponent, type PageType } from '@/components/pages';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
 interface PageProps {
   params: Promise<{ path?: string[] }>;
   searchParams: Promise<Record<string, string>>;
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  // Convert path array to string path or use root path
+  const { path: pathSplit = [] } = await params;
+  const path = `/${pathSplit.join('/')}`;
+  const basicPage = await api.getPage(path, 'wagtailcore.Page');
+  return {
+    title: basicPage.title,
+    description: basicPage.meta.search_description,
+  };
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
