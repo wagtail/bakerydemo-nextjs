@@ -13,7 +13,7 @@ export default async function BreadsIndexPage({
   page,
   searchParams,
 }: BreadsIndexPageProps) {
-  const currentPage = Number((await searchParams).page || '1');
+  const currentPage = Number((await searchParams)?.page || '1');
   const pageSize = 12;
   const offset = (currentPage - 1) * pageSize;
 
