@@ -1,4 +1,5 @@
 import { type ContentType, type Schema, getSchema } from '@/models';
+import { cache } from 'react';
 import { z } from 'zod';
 
 // Helper to get the underlying schema, bypassing transforms
@@ -258,5 +259,11 @@ export class WagtailAPI {
 const api = new WagtailAPI({
   apiHost: process.env.NEXT_PUBLIC_WAGTAIL_API_HOST!,
 });
+
+api.getPage = cache(api.getPage.bind(api));
+api.getPages = cache(api.getPages.bind(api));
+api.getPreview = cache(api.getPreview.bind(api));
+api.getImage = cache(api.getImage.bind(api));
+api.getImages = cache(api.getImages.bind(api));
 
 export default api;
