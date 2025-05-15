@@ -5,47 +5,44 @@ import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 
 declare global {
-  interface HTMLElement {
-    initialiseAxe: () => void;
-    runAxe: () => void;
+  interface WagtailUserbar extends HTMLElement {
+    initialiseAxe: () => Promise<void>;
+    runAxe: () => Promise<void>;
   }
 }
 
 export default function Userbar() {
   const userbarRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST;
+  const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST as string;
 
   useEffect(() => {
-    // Use an explicit mounted state to prevent running the script twice in
-    // React's strict mode.
-    fetch(`${process.env.NEXT_PUBLIC_WAGTAIL_API_HOST}/userbar/`)
+    fetch(`${apiHost}/userbar/`)
       .then((res) => res.text())
       .then((userbar) => {
-        if (!userbarRef.current) return;
+        if (
+          !userbarRef.current ||
+          // useEffect runs twice in development mode, so we need to bail out if
+          // the userbar is already present from the previous fetch() call.
+          userbarRef.current.querySelector('wagtail-userbar')
+        )
+          return;
         userbarRef.current.innerHTML = userbar;
       });
-  }, []);
+  }, [apiHost]);
 
   useEffect(() => {
-    if (!pathname) return;
-    document.querySelector<HTMLElement>('wagtail-userbar')?.runAxe();
+    const userbar =
+      userbarRef.current?.querySelector<WagtailUserbar>('wagtail-userbar');
+    if (!userbar || !pathname) return;
+    userbar.runAxe();
   }, [pathname]);
 
   return (
     <>
       <div ref={userbarRef} />
+      <Script src={`${apiHost}/static/wagtailadmin/js/vendor.js`} />
       <Script src={`${apiHost}/static/wagtailadmin/js/userbar.js`} />
-      <Script
-        src={`${apiHost}/static/wagtailadmin/js/vendor.js`}
-        onReady={() => {
-          setTimeout(() => {
-            document
-              .querySelector<HTMLElement>('wagtail-userbar')
-              ?.initialiseAxe();
-          }, 2000);
-        }}
-      />
     </>
   );
 }
