@@ -22,26 +22,6 @@ const parentMetaSchema = basePageMetaSchema.transform((data) => ({
   html_path: removeOrigin(data.html_url),
 }));
 
-// Full meta schema (all fields)
-const pageMetaSchema = basePageMetaSchema
-  .extend({
-    slug: z.string(),
-    show_in_menus: z.boolean(),
-    seo_title: z.string(),
-    search_description: z.string(),
-    first_published_at: z.string().nullable(),
-    alias_of: z.number().nullable(),
-    locale: z.string(),
-    parent: z
-      .lazy(() => parentPageSchema)
-      .nullable()
-      .optional(),
-  })
-  .transform((data) => ({
-    ...data,
-    html_path: removeOrigin(data.html_url),
-  }));
-
 // Base page schema (without meta to avoid circular reference)
 const basePageSchema = z.object({
   id: z.number(),
@@ -52,6 +32,26 @@ const basePageSchema = z.object({
 const parentPageSchema = basePageSchema.extend({
   meta: parentMetaSchema,
 });
+
+// Full meta schema (all fields)
+const pageMetaSchema = basePageMetaSchema
+  .extend({
+    slug: z.string(),
+    show_in_menus: z.boolean(),
+    seo_title: z.string(),
+    search_description: z.string(),
+    first_published_at: z.string().nullable(),
+    alias_of: parentPageSchema.nullable(),
+    locale: z.string(),
+    parent: z
+      .lazy(() => parentPageSchema)
+      .nullable()
+      .optional(),
+  })
+  .transform((data) => ({
+    ...data,
+    html_path: removeOrigin(data.html_url),
+  }));
 
 // Full page schema
 const pageSchema = basePageSchema.extend({
