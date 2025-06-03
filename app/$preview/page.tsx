@@ -4,7 +4,13 @@ import api from '@/lib/api';
 import type { wagtailcore } from '@/models';
 import { cookies, draftMode } from 'next/headers';
 
-export default async function Preview() {
+export default async function Preview({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    inPreviewPanel?: string;
+  }>;
+}) {
   const draft = await draftMode();
   const cookieStore = await cookies();
 
@@ -19,8 +25,15 @@ export default async function Preview() {
     return <h1>Preview unavailable.</h1>;
   }
 
+  const params = await searchParams;
   const { token, contentType } = data;
   const page = await api.getPreview(contentType, token);
   const PageComponent = getPageComponent(contentType);
-  return <PageComponent page={page as wagtailcore.Page} />;
+
+  return (
+    <>
+      <DynamicUserbar hidden={params.inPreviewPanel === 'true'} />
+      <PageComponent page={page as wagtailcore.Page} />
+    </>
+  );
 }

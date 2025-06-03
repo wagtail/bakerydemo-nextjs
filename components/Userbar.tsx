@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export default function Userbar() {
+export default function Userbar({ hidden = false }: { hidden?: boolean }) {
   const userbarRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST as string;
@@ -40,7 +40,7 @@ export default function Userbar() {
 
   return (
     <>
-      <div ref={userbarRef} />
+      <div hidden={hidden} ref={userbarRef} />
       <Script src={`${apiHost}/static/wagtailadmin/js/vendor.js`} />
       <Script src={`${apiHost}/static/wagtailadmin/js/userbar.js`} />
     </>

@@ -6,6 +6,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get('token');
   const contentType = searchParams.get('content_type');
+  const inPreviewPanel =
+    (searchParams.get('in_preview_panel') || '').toLowerCase() === 'true';
 
   // Check the token and content_type parameters
   // The token should only be known to Next.js and the CMS
@@ -35,7 +37,7 @@ export async function GET(request: Request) {
   });
   cookieStore.set({
     name: '__wagtail_preview_data',
-    value: JSON.stringify({ contentType, token }),
+    value: JSON.stringify({ contentType, token, inPreviewPanel }),
     httpOnly: true,
     path: '/$preview',
     maxAge: 60 * 60, // 1 hour
@@ -43,5 +45,9 @@ export async function GET(request: Request) {
     sameSite: 'none',
   });
 
-  return redirect('/$preview');
+  const params = new URLSearchParams({
+    inPreviewPanel: inPreviewPanel.toString(),
+  });
+
+  return redirect(`/$preview?${params}`);
 }
