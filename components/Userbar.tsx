@@ -1,6 +1,5 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 
@@ -13,7 +12,6 @@ declare global {
 
 export default function Userbar({ hidden = false }: { hidden?: boolean }) {
   const userbarRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
   const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST as string;
 
   useEffect(() => {
@@ -30,13 +28,6 @@ export default function Userbar({ hidden = false }: { hidden?: boolean }) {
         userbarRef.current.innerHTML = userbar;
       });
   }, [apiHost]);
-
-  useEffect(() => {
-    const userbar =
-      userbarRef.current?.querySelector<WagtailUserbar>('wagtail-userbar');
-    if (!userbar || !pathname) return;
-    userbar.runAxe();
-  }, [pathname]);
 
   return (
     <>
