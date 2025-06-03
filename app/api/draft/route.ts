@@ -5,11 +5,12 @@ export async function GET(request: Request) {
   // Parse query string parameters
   const { searchParams } = new URL(request.url);
   const token = searchParams.get('token');
+  const contentType = searchParams.get('content_type');
 
-  // Check the secret and next parameters
-  // This secret should only be known to this route handler and the CMS
-  if (!token) {
-    return new Response('Invalid token', { status: 401 });
+  // Check the token and content_type parameters
+  // The token should only be known to Next.js and the CMS
+  if (!token || !contentType) {
+    return new Response('Invalid token or content type', { status: 401 });
   }
 
   const draft = await draftMode();
@@ -32,6 +33,15 @@ export async function GET(request: Request) {
     path: '/$preview',
     maxAge: 60 * 60, // 1 hour
   });
+  cookieStore.set({
+    name: '__wagtail_preview_data',
+    value: JSON.stringify({ contentType, token }),
+    httpOnly: true,
+    path: '/$preview',
+    maxAge: 60 * 60, // 1 hour
+    secure: true,
+    sameSite: 'none',
+  });
 
-  return redirect(`/$preview?${searchParams.toString()}`);
+  return redirect('/$preview');
 }
