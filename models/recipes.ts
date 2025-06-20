@@ -5,7 +5,7 @@ import blocks from './blocks';
 
 // RecipePersonRelationship schema
 const recipePersonRelationshipSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   person: base.Person,
 });
 

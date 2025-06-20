@@ -4,21 +4,21 @@ import wagtailimages from './wagtailimages';
 import blocks from './blocks/base';
 // Country schema
 const countrySchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   title: z.string().max(100),
   meta: wagtailcore._BaseMeta,
 });
 
 // BreadIngredient schema
 const breadIngredientSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   name: z.string().max(255),
   meta: wagtailcore._BaseMeta,
 });
 
 // BreadType schema
 const breadTypeSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   title: z.string().max(255),
   meta: wagtailcore._BaseMeta,
 });

@@ -5,7 +5,7 @@ import blocks from './blocks/base';
 
 // Operating Hours schema
 const operatingHoursSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   day: z.enum(['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']),
   opening_time: z.string().nullable(), // Time as string HH:MM
   closing_time: z.string().nullable(), // Time as string HH:MM
@@ -22,7 +22,7 @@ const locationPageSchema = wagtailcore.Page.extend({
   lat_long: z
     .string()
     .regex(
-      /^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/,
+      /^((\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?))?$/,
       'Lat Long must be a comma-separated numeric lat and long',
     ),
   hours_of_operation: z.array(operatingHoursSchema),

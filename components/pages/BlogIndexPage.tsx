@@ -14,10 +14,12 @@ export default async function BlogIndexPage({
   const { tags: searchTags } = (await searchParams) as BlogSearchParams;
 
   // Get blog posts that are children of the blog index page
-  const { items: posts } = await api.getPages('blog.BlogPage', {
-    child_of: page.id.toString(),
-    ...(searchTags ? { tags: searchTags } : {}),
-  });
+  const { items: posts } = page.id
+    ? await api.getPages('blog.BlogPage', {
+        child_of: page.id.toString(),
+        ...(searchTags ? { tags: searchTags } : {}),
+      })
+    : { items: [] };
 
   return (
     <>

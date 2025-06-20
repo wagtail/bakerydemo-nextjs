@@ -5,7 +5,7 @@ import blocks from './blocks/base';
 
 // Person schema
 const personSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   first_name: z.string().max(254),
   last_name: z.string().max(254),
   job_title: z.string().max(254),
@@ -15,7 +15,7 @@ const personSchema = z.object({
 
 // Footer Text schema
 const footerTextSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   body: z.string(),
   meta: wagtailcore._BaseMeta,
 });
@@ -59,7 +59,7 @@ const galleryPageSchema = wagtailcore.Page.extend({
 
 // Form Field schema
 const formFieldSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   label: z.string(),
   field_type: z.string(),
   required: z.boolean(),
@@ -76,15 +76,15 @@ const formPageSchema = wagtailcore.Page.extend({
   image: wagtailimages.Image.nullable(),
   body: z.array(z.any()), // StreamField
   thank_you_text: z.string(),
-  from_address: z.string().email(),
-  to_address: z.string().email(),
+  from_address: z.string().email().or(z.literal('')),
+  to_address: z.string().email().or(z.literal('')),
   subject: z.string(),
   form_fields: z.array(formFieldSchema),
 });
 
 // Generic Settings schema
 const genericSettingsSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   mastodon_url: z.string().url().optional(),
   github_url: z.string().url().optional(),
   organisation_url: z.string().url().optional(),
@@ -92,7 +92,7 @@ const genericSettingsSchema = z.object({
 
 // Site Settings schema
 const siteSettingsSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable(),
   title_suffix: z.string().max(255).default('The Wagtail Bakery'),
 });
 

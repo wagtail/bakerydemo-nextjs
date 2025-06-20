@@ -18,11 +18,13 @@ export default async function BreadsIndexPage({
   const offset = (currentPage - 1) * pageSize;
 
   // Get bread pages that are children of the breads index page
-  const { items: breads, meta } = await api.getPages('breads.BreadPage', {
-    child_of: page.id.toString(),
-    limit: pageSize.toString(),
-    offset: offset.toString(),
-  });
+  const { items: breads, meta } = page.id
+    ? await api.getPages('breads.BreadPage', {
+        child_of: page.id.toString(),
+        limit: pageSize.toString(),
+        offset: offset.toString(),
+      })
+    : { items: [], meta: { total_count: 0 } };
 
   const totalPages = Math.ceil(meta.total_count / pageSize);
 

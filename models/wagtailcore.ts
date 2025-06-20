@@ -24,7 +24,7 @@ const parentMetaSchema = basePageMetaSchema.transform((data) => ({
 
 // Base page schema (without meta to avoid circular reference)
 const basePageSchema = z.object({
-  id: z.number(),
+  id: z.number().nullable().nullable(),
   title: z.string(),
 });
 

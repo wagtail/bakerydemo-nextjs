@@ -7,9 +7,11 @@ export default async function RecipeIndexPage({
   page,
 }: PageComponentProps<recipes.RecipeIndexPage>) {
   // Get recipe pages that are children of the recipe index page
-  const { items: recipes } = await api.getPages('recipes.RecipePage', {
-    child_of: page.id.toString(),
-  });
+  const { items: recipes } = page.id
+    ? await api.getPages('recipes.RecipePage', {
+        child_of: page.id.toString(),
+      })
+    : { items: [] };
 
   return (
     <>

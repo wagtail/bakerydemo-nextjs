@@ -7,9 +7,11 @@ export default async function LocationsIndexPage({
   page,
 }: PageComponentProps<locations.LocationsIndexPage>) {
   // Get location pages that are children of the locations index page
-  const { items: locations } = await api.getPages('locations.LocationPage', {
-    child_of: page.id.toString(),
-  });
+  const { items: locations } = page.id
+    ? await api.getPages('locations.LocationPage', {
+        child_of: page.id.toString(),
+      })
+    : { items: [] };
 
   return (
     <>
