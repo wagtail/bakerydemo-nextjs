@@ -47,6 +47,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Pagination for listings
 - Image optimization using Next.js Image component
 - Type-safe API integration
+- [Wagtail user bar](./headless-userbar.md)
 
 ## Project Structure
 
