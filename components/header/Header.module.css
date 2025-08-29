@@ -1,0 +1,96 @@
+/* Header.module.css */
+
+/* overall header */
+.header {
+  padding: 14px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+/* brand block (left) */
+.brand {
+  font-family: 'Marcellus', serif; /* make sure Marcellus is loaded globally */
+  font-size: 26px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.brandLink {
+  color: inherit !important;
+  text-decoration: none;
+}
+
+/* thin vertical separator between brand and nav */
+.separator {
+  width: 1px;
+  height: 46px;
+  background: #e6e6e6;
+  margin: 0 28px; /* spacing between brand and nav like screenshot */
+}
+
+/* nav container */
+.navWrapper {
+  display: block;
+  min-width: 0;
+}
+
+/* nav list — control spacing exactly */
+.navList {
+  display: flex;
+  gap: 36px;           /* spacing between items; adjust to taste (36px matches screenshot) */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: center;
+}
+
+/* item and link styles */
+.navItem {
+  margin: 0;
+}
+
+.navLink {
+  color: var(--dark) !important;;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 6px 0;     /* vertical hit area */
+  transition: color .12s ease;
+}
+
+.navLink:hover {
+  color: #b1592a; /* bakery accent */
+  text-decoration: underline;
+}
+
+.active {
+  color: #b1592a;
+  font-weight: 600;
+}
+
+/* search box (no button) */
+.search {
+  max-width: 260px;
+}
+
+/* search input styled like bakery demo: boxed with icon on right */
+.searchInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 40px 10px 12px; /* room for icon at right */
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  font-size: 14px;
+  outline: none;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%23999' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+/* focus state */
+.searchInput:focus {
+  border-color: #b1592a;
+  box-shadow: 0 0 0 2px rgba(177,89,42,0.06);
+}
+
+

@@ -41,12 +41,14 @@ const paragraphBlockSchema = z.object({
 
 // Embed block schema
 const embedBlockSchema = z.object({
-  type: z.literal('embed_block'),
+  type: z.literal("embed_block"),
   id: z.string(),
-  value: z.object({
-    url: z.string().url(),
-    html: z.string(), // Rendered embed HTML
-  }),
+  value: z.string().or(
+    z.object({
+      url: z.string().url(),
+      html: z.string(),
+    }),
+  ),
 });
 
 // Base StreamBlock - combines all block types
