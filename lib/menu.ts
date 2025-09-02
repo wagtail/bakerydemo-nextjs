@@ -1,5 +1,6 @@
 import { cache } from 'react';
 import api from './api';
+import type { wagtailcore } from '@/models';
 
 // Cache the menu items fetch
 export const getMenuItems = cache(async () => {
@@ -10,3 +11,7 @@ export const getMenuItems = cache(async () => {
   });
   return response.items;
 });
+
+export type NavigationLinksProps = {
+  menuItems: wagtailcore.Page[];
+};

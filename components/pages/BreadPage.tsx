@@ -8,61 +8,61 @@ export default async function BreadPage({
 }: PageComponentProps<breads.BreadPage>) {
   return (
     <>
-      <section>
+      {/* HERO */}
+      <section className="bread-hero">
         {page.image && (
-          <div>
+          <div className="bread-image">
             <Image
               src={page.image.meta.download_url}
               alt={page.image.title}
-              width={800}
-              height={650}
+              fill
               priority
+              sizes="100vw"
+              className="bread-image-el"
             />
           </div>
         )}
-        <h1>{page.title}</h1>
-        <p>{page.introduction}</p>
+
+        {/* Orange title slab, LEFT aligned */}
+        <div className="bread-title-box">
+          <h1 className="bread-title">{page.title}</h1>
+        </div>
       </section>
 
-      <section>
-        <BaseStreamBlock blocks={page.body} />
-
-        <aside>
-          {(page.origin || page.bread_type || page.ingredients.length > 0) && (
-            <div>
-              {page.origin && (
-                <div>
-                  <h4>Origin</h4>
-                  <p>{page.origin.title}</p>
-                </div>
+      {/* CONTENT */}
+      <section className="bread-details row">
+        <div className="bread-container container col-md-12">
+          <div className="bread-grid">
+            {/* LEFT COLUMN */}
+            <div className="bread-main">
+              {page.introduction && (
+                <p className="bread-intro">{page.introduction}</p>
               )}
 
-              {page.bread_type && (
-                <div>
-                  <h4>Type</h4>
-                  <p>{page.bread_type.title}</p>
-                </div>
-              )}
-
-              {page.ingredients.length > 0 && (
-                <div>
-                  <h4>Ingredients</h4>
-                  <ul>
-                    {page.ingredients.map((ingredient) => (
-                      <li key={ingredient.id}>
-                        {ingredient.meta.type === 'breads.BreadIngredient' ? (
-                          ingredient.name
-                        ) : (
-                          <span>Draft ingredient</span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <div className="bread-body">
+                <BaseStreamBlock blocks={page.body} />
+              </div>
             </div>
-          )}
-        </aside>
+
+            {/* RIGHT COLUMN */}
+            {(page.origin || page.bread_type) && (
+              <aside className="bread-aside">
+                {page.origin && (
+                  <div className="bread-aside-item">
+                    <h4>Origin</h4>
+                    <p>{page.origin.title}</p>
+                  </div>
+                )}
+                {page.bread_type && (
+                  <div className="bread-aside-item">
+                    <h4>Type</h4>
+                    <p>{page.bread_type.title}</p>
+                  </div>
+                )}
+              </aside>
+            )}
+          </div>
+        </div>
       </section>
     </>
   );
