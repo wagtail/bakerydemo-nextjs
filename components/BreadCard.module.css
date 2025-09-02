@@ -1,0 +1,107 @@
+.card {
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--border-grey);
+  align-items: stretch;
+  margin-bottom: 24px;
+  display: flex;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Link wrapper behaves like a block */
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+/* Image wrapper */
+.imageWrapper {
+  flex: 0 0 160px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+/* ✅ Image zoom effect on card hover */
+.card:hover .image {
+  transform: scale(1.08);
+}
+
+/* Content styles */
+.content {
+  flex: 1;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 45px;
+  padding-top: 30px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.title a {
+  color: white;
+  text-decoration: none;
+  transition: text-decoration-color 0.25s ease;
+}
+
+/* underline + color when hovering the whole card OR just the link */
+.card:hover .listing-card__title a,
+.listing-card__title a:hover {
+  color: var(--dark-orange);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+/* a local wrapper so the selector is “pure” */
+.titleScope {}
+
+/* target the global class inside the module */
+.card:hover .content :global(.listing-card__title),
+.titleScope :global(a):hover {
+  color: var(--dark-orange);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+
+/* ✅ Scoped definition list styles */
+.content dl {
+  font-size: var(--font-sm);
+  line-height: 1.5;
+  margin: 0;
+  color: var(--dark);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.25rem;
+  column-gap: 0.5rem;
+}
+
+.content dt {
+  font-weight: 600;
+  color: #444;
+}
+
+.content dd {
+  margin: 0;
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}

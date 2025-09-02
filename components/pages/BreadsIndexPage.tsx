@@ -17,7 +17,6 @@ export default async function BreadsIndexPage({
   const pageSize = 12;
   const offset = (currentPage - 1) * pageSize;
 
-  // Get bread pages that are children of the breads index page
   const { items: breads, meta } = page.id
     ? await api.getPages('breads.BreadPage', {
         child_of: page.id.toString(),
@@ -29,29 +28,36 @@ export default async function BreadsIndexPage({
   const totalPages = Math.ceil(meta.total_count / pageSize);
 
   return (
-    <>
-      <section>
-        <h1>{page.title}</h1>
-        <p>{page.introduction}</p>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 ">
+      {/* Page Header */}
+      <section className="row container" >
+        <div className='col-md-12'><h1 className="index-header__title">{page.title}</h1></div>
+        <div className='col-sm-12 col-md-7'><p className="index-header__introduction">{page.introduction}</p></div>
       </section>
 
-      <section>
+      {/* Bread Grid */}
+      <section className="container">
         {breads.length > 0 ? (
-          breads.map((bread) => <BreadCard key={bread.id} bread={bread} />)
+         <div className='grid'>
+            {breads.map((bread) => (
+              <BreadCard key={bread.id} bread={bread} />
+            ))}
+        </div>
         ) : (
-          <p>No breads found.</p>
+          <p className="text-center text-gray-600">No breads found.</p>
         )}
       </section>
 
+      {/* Pagination */}
       {meta.total_count > pageSize && (
-        <section>
+        <section className="mt-10 flex justify-center">
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            baseUrl=""
+            baseUrl="/breads"
           />
         </section>
       )}
-    </>
+    </div>
   );
 }

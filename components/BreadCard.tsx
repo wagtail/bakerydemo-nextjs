@@ -1,36 +1,33 @@
-import type { breads } from '@/models';
-import Image from 'next/image';
 import Link from 'next/link';
+import type { breads } from '@/models';
+import styles from './BreadCard.module.css';
 
 interface BreadCardProps {
   bread: breads.BreadPage;
 }
 
 export default function BreadCard({ bread }: BreadCardProps) {
+  console.log(bread, "0---0-0-0-0-0-0---0-0");
+
   return (
-    <article>
-      {bread.image && (
-        <Link href={`/breads/${bread.meta.slug}`}>
-          <figure>
-            <Image
+    <Link href={bread.meta.html_path} className={styles.cardLink}>
+      <article className={styles.card}>
+        {/* Image */}
+        {bread.image && (
+          <div className={styles.imageWrapper}>
+            <img
               src={bread.image.meta.download_url}
               alt={bread.image.title}
-              width={180}
-              height={180}
-              loading="lazy"
+              className={`${styles.image} listing-card__image`}
             />
-          </figure>
-        </Link>
-      )}
-      <div>
-        {
-          // FIXME: This should've used an h2, but we use h3 to test the
-          // accessibility checker
-        }
-        <h3>
-          <Link href={`/breads/${bread.meta.slug}`}>{bread.title}</Link>
-        </h3>
-        {(bread.origin || bread.bread_type) && (
+          </div>
+        )}
+
+        {/* Text */}
+        <div className={styles.content}>
+          <h3 className={`listing-card__title ${styles.titleScope}`}>
+            {bread.title}
+          </h3>
           <dl>
             {bread.origin && (
               <>
@@ -45,8 +42,8 @@ export default function BreadCard({ bread }: BreadCardProps) {
               </>
             )}
           </dl>
-        )}
-      </div>
-    </article>
+        </div>
+      </article>
+    </Link>
   );
 }

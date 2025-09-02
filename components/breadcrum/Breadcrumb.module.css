@@ -1,0 +1,44 @@
+.breadcrumb {
+  padding: 10px 0;
+  font-size: 15px;
+  color: #777;
+}
+
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  color: var(--dark);
+  font-family: var(--font--secondary);
+  font-size: var(--font-sm);
+  line-height: 1.5;
+  margin-bottom: 0;
+  padding-left: 0;
+  background-color: transparent;
+}
+
+.breadcrumb li {
+  display: inline;
+}
+
+.breadcrumb .separator {
+  margin: 0 14px; /* Adjusted spacing to match design */
+  vertical-align: middle;
+  width: 8px;
+  height: 14px;
+}
+
+.breadcrumb a {
+  color: var(--dark);
+  text-decoration: underline;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb span {
+  color: var(--dark);
+}

@@ -2102,3 +2102,160 @@ input[type='radio'] {
   max-height: 100vh;
   margin-inline: auto;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 40px;
+  margin: 40px 0;
+}
+
+/* bread page styles */
+
+/* ===== HERO ===== */
+.bread-hero {
+  position: relative;
+}
+
+/* full-bleed cropped hero */
+.bread-image {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+}
+.bread-image-el {
+  object-fit: cover;
+}
+
+/* left-aligned orange title slab */
+.bread-title-box {
+  position: absolute;
+  left: 60px;
+  bottom: -32px;          /* overlap slightly */
+  padding: 22px 36px;     /* smaller, matches design */
+  width: max-content;
+  max-width: 100%;
+  transform: none;        /* remove translateY */
+  z-index: 2;  
+  background-color: var(--orange);
+  width: max-content;
+  max-width: 100%;
+  font-size: 6.25rem;
+  line-height: 0.64;
+  padding: 75px 65px;
+  transform: translateY(35%);           /* sit above content */
+}
+
+.bread-title {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font--secondary);
+  font-weight: 700;
+  line-height: 1;
+  font-size: clamp(36px, 5vw, 80px);
+}
+
+/* ===== CONTENT WRAPPER ===== */
+.bread-details {     /* pushes text clearly below slab */
+  padding-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.bread-container {}
+
+/* two columns: main left, aside right */
+.bread-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 460px;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ===== LEFT COLUMN ===== */
+.bread-main {
+  min-width: 0;
+  margin-top: 160px;
+}
+
+.bread-intro {
+  margin: 0 0 28px 0;
+  color: var(--dark);
+  text-align: left;
+  line-height: 1.45;
+  font-family: var(--font--primary);
+  font-weight: 400;
+  font-size: clamp(20px, 2.2vw, 36px);
+  max-width: 900px;
+  margin-bottom: 65px;
+}
+
+.bread-body {
+  display: block;
+}
+.bread-body iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  display: block;
+  border: 0;
+}
+
+/* ===== RIGHT CARD ===== */
+.bread-aside {
+  padding: 28px;
+  margin-top: 0;
+  align-self: start;
+  background-color: var(--cream);
+  padding: 240px 60px 60px;
+  margin-right: -40px;
+  margin-bottom: 0;
+}
+.bread-aside-item + .bread-aside-item {
+  margin-top: 20px;
+}
+.bread-aside h4 {
+  margin: 0 0 8px 0;
+  font-family: var(--font--secondary);
+  font-weight: 700;
+  font-size: 22px;
+  color: #333;
+}
+.bread-aside p {
+  margin: 0;
+  font-family: var(--font--primary);
+  font-size: 18px;
+  color: #333;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .bread-grid {
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+  }
+  .bread-title-box {
+    left: 32px;
+    bottom: -28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .bread-grid {
+    grid-template-columns: 1fr;
+  }
+  .bread-aside {
+    margin-top: 32px;
+  }
+  .bread-title-box {
+    left: 20px;
+    bottom: -24px;
+    padding: 18px 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bread-image { height: 280px; }
+  .bread-title { font-size: clamp(32px, 10vw, 56px); }
+}
