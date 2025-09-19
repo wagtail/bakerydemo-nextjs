@@ -10,12 +10,13 @@ declare global {
   }
 }
 
-export default function Userbar({ hidden = false }: { hidden?: boolean }) {
+export default function Userbar({ hidden = false, pageId = null }: { hidden?: boolean, page_id?: number }) {
   const userbarRef = useRef<HTMLDivElement>(null);
   const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST as string;
 
   useEffect(() => {
-    fetch(`${apiHost}/userbar/`)
+    const userbarUrl = `${apiHost}/userbar/${pageId ? `?page_id=${pageId}` : ''}`;
+    fetch(`${apiHost}/userbar/`, { credentials: 'include' })
       .then((res) => res.text())
       .then((userbar) => {
         if (
