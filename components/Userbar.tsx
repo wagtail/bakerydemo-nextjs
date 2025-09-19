@@ -16,7 +16,7 @@ export default function Userbar({ hidden = false, pageId = null }: { hidden?: bo
 
   useEffect(() => {
     const userbarUrl = `${apiHost}/userbar/${pageId ? `?page_id=${pageId}` : ''}`;
-    fetch(`${apiHost}/userbar/`, { credentials: 'include' })
+    fetch(userbarUrl, { credentials: 'include' })
       .then((res) => res.text())
       .then((userbar) => {
         if (
