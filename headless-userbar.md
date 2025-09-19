@@ -27,7 +27,9 @@ A React component (`Userbar.tsx`) is created to fetch and render the user bar HT
 
 ### 2. Usage in pages
 
-The user bar component is imported and rendered in the relevant pages, such as the preview page. It can be conditionally hidden (e.g., when inside a preview panel) by passing a `hidden` prop.
+The user bar component is imported and rendered in the relevant pages, such as the preview page. It can be conditionally hidden (e.g., when inside a preview panel) by passing a `hidden` prop. If the component
+is given a page ID in the `pageId` attribute, it will render the correct *Edit this page* and other page
+related userbar items.
 
 ### 3. Lazy-loading with dynamic import (optional)
 
