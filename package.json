@@ -2,6 +2,11 @@
   "name": "bakerydemo-nextjs",
   "version": "0.1.0",
   "private": true,
+  "devEngines": {
+    "packageManager": {
+      "name": "npm"
+    }
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
