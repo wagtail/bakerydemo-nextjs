@@ -1,7 +1,7 @@
-import type { recipes } from '@/models';
-import type { PageComponentProps } from './types';
 import BlogCard from '@/components/BlogCard';
 import api from '@/lib/api';
+import type { recipes } from '@/models';
+import type { PageComponentProps } from './types';
 
 export default async function RecipeIndexPage({
   page,

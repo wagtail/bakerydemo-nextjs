@@ -1,7 +1,7 @@
-import type { locations } from '@/models';
-import type { PageComponentProps } from './types';
 import Image from 'next/image';
+import type { locations } from '@/models';
 import BaseStreamBlock from '../streamfield/BaseStreamBlock';
+import type { PageComponentProps } from './types';
 
 export default async function LocationPage({
   page,

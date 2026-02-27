@@ -1,8 +1,8 @@
-import type { base } from '@/models';
-import type { PageComponentProps } from './types';
 import Image from 'next/image';
 import api from '@/lib/api';
+import type { base } from '@/models';
 import BaseStreamBlock from '../streamfield/BaseStreamBlock';
+import type { PageComponentProps } from './types';
 
 export default async function GalleryPage({
   page,

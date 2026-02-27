@@ -1,8 +1,8 @@
+import { cookies, draftMode } from 'next/headers';
 import DynamicUserbar from '@/components/DynamicUserbar';
 import { getPageComponent, type PageType } from '@/components/pages';
 import api from '@/lib/api';
 import type { wagtailcore } from '@/models';
-import { cookies, draftMode } from 'next/headers';
 
 export default async function Preview({
   searchParams,
@@ -17,7 +17,7 @@ export default async function Preview({
   let data: { contentType: PageType; token: string } | Record<string, never>;
   try {
     data = JSON.parse(cookieStore.get('__wagtail_preview_data')?.value || '');
-  } catch (e) {
+  } catch {
     data = {};
   }
 

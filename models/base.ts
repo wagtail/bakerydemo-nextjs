@@ -1,7 +1,7 @@
 import { z } from 'zod';
+import blocks from './blocks/base';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
-import blocks from './blocks/base';
 
 // Person schema
 const personSchema = z.object({

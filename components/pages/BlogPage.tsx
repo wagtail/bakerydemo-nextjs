@@ -1,8 +1,8 @@
-import type { blog } from '@/models';
-import type { PageComponentProps } from './types';
-import { formatDate } from '@/lib/format';
 import Image from 'next/image';
+import { formatDate } from '@/lib/format';
+import type { blog } from '@/models';
 import BaseStreamBlock from '../streamfield/BaseStreamBlock';
+import type { PageComponentProps } from './types';
 
 export default async function BlogPage({
   page,

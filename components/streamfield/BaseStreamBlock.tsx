@@ -1,9 +1,9 @@
+import type { blocks } from '@/models/blocks/base';
 import BlockQuote from './BlockQuote';
+import CaptionedImageBlock from './CaptionedImageBlock';
 import EmbedBlock from './EmbedBlock';
 import HeadingBlock from './HeadingBlock';
-import CaptionedImageBlock from './CaptionedImageBlock';
 import RichTextBlock from './RichTextBlock';
-import type { blocks } from '@/models/blocks/base';
 
 const blockComponents = {
   heading_block: HeadingBlock,

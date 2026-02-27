@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import wagtailcore from './wagtailcore';
-import wagtailimages from './wagtailimages';
 import base from './base';
 import blocks from './blocks/base';
+import wagtailcore from './wagtailcore';
+import wagtailimages from './wagtailimages';
 
 // BlogPersonRelationship schema
 const blogPersonRelationshipSchema = z.object({

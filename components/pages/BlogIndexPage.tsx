@@ -1,7 +1,7 @@
-import type { blog } from '@/models';
-import type { PageComponentProps } from './types';
 import BlogCard from '@/components/BlogCard';
 import api from '@/lib/api';
+import type { blog } from '@/models';
+import type { PageComponentProps } from './types';
 
 interface BlogSearchParams {
   tags?: string;

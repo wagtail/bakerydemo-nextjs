@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import wagtailcore from './wagtailcore';
 import base from './base';
 import blocks from './blocks';
+import wagtailcore from './wagtailcore';
 
 // RecipePersonRelationship schema
 const recipePersonRelationshipSchema = z.object({

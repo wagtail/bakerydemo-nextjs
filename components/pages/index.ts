@@ -1,18 +1,18 @@
-import BlogIndexPage from './BlogIndexPage';
-import BlogPage from './BlogPage';
-import HomePage from './HomePage';
-import StandardPage from './StandardPage';
-import BreadsIndexPage from './BreadsIndexPage';
-import BreadPage from './BreadPage';
-import FormPage from './FormPage';
-import type { PageComponentProps } from './types';
-import LocationsIndexPage from './LocationsIndexPage';
-import LocationPage from './LocationPage';
-import RecipeIndexPage from './RecipeIndexPage';
-import RecipePage from './RecipePage';
-import GalleryPage from './GalleryPage';
 import { notFound } from 'next/navigation';
 import { iget } from '@/lib/object';
+import BlogIndexPage from './BlogIndexPage';
+import BlogPage from './BlogPage';
+import BreadPage from './BreadPage';
+import BreadsIndexPage from './BreadsIndexPage';
+import FormPage from './FormPage';
+import GalleryPage from './GalleryPage';
+import HomePage from './HomePage';
+import LocationPage from './LocationPage';
+import LocationsIndexPage from './LocationsIndexPage';
+import RecipeIndexPage from './RecipeIndexPage';
+import RecipePage from './RecipePage';
+import StandardPage from './StandardPage';
+import type { PageComponentProps } from './types';
 
 const pageComponents = {
   'base.HomePage': HomePage,

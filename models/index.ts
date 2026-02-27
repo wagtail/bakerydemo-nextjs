@@ -1,11 +1,11 @@
 import { iget } from '@/lib/object';
+import base from './base';
+import blog from './blog';
+import breads from './breads';
+import locations from './locations';
+import recipes from './recipes';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
-import base from './base';
-import breads from './breads';
-import recipes from './recipes';
-import locations from './locations';
-import blog from './blog';
 
 // A mapping of model names to their schemas, namespaced by the Django app label
 const schemas = {
@@ -21,10 +21,10 @@ const schemas = {
 export default schemas;
 
 export type { base } from './base';
-export type { breads } from './breads';
-export type { recipes } from './recipes';
-export type { locations } from './locations';
 export type { blog } from './blog';
+export type { breads } from './breads';
+export type { locations } from './locations';
+export type { recipes } from './recipes';
 
 export type { wagtailcore } from './wagtailcore';
 export type { wagtailimages } from './wagtailimages';

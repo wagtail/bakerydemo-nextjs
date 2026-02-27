@@ -1,13 +1,13 @@
+import type { recipeBlocks } from '@/models/blocks/recipes';
 import BlockQuote from './BlockQuote';
+import CaptionedImageBlock from './CaptionedImageBlock';
 import EmbedBlock from './EmbedBlock';
 import HeadingBlock from './HeadingBlock';
-import CaptionedImageBlock from './CaptionedImageBlock';
+import IngredientsListBlock from './IngredientsListBlock';
 import RichTextBlock from './RichTextBlock';
+import StepsListBlock from './StepsListBlock';
 import TableBlock from './TableBlock';
 import TypedTableBlock from './TypedTableBlock';
-import IngredientsListBlock from './IngredientsListBlock';
-import StepsListBlock from './StepsListBlock';
-import type { recipeBlocks } from '@/models/blocks/recipes';
 
 const blockComponents = {
   // Base blocks

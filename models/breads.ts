@@ -1,7 +1,8 @@
 import { z } from 'zod';
+import blocks from './blocks/base';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
-import blocks from './blocks/base';
+
 // Country schema
 const countrySchema = z.object({
   id: z.number().nullable(),

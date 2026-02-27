@@ -1,7 +1,7 @@
-import type { blog, recipes } from '@/models';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { formatDate } from '@/lib/format';
+import type { blog, recipes } from '@/models';
 
 interface BlogCardProps {
   page: blog.BlogPage | recipes.RecipePage;

@@ -1,7 +1,7 @@
-import type { locations } from '@/models';
-import type { PageComponentProps } from './types';
 import LocationCard from '@/components/LocationCard';
 import api from '@/lib/api';
+import type { locations } from '@/models';
+import type { PageComponentProps } from './types';
 
 export default async function LocationsIndexPage({
   page,

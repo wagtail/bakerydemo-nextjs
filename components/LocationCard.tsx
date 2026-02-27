@@ -1,6 +1,6 @@
-import type { locations } from '@/models';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { locations } from '@/models';
 
 interface LocationCardProps {
   location: locations.LocationPage;

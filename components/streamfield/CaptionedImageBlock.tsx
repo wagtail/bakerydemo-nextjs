@@ -3,7 +3,9 @@ import type { blocks } from '@/models/blocks/base';
 
 export default function CaptionedImageBlock({
   block: { value },
-}: { block: blocks.CaptionedImageBlock }) {
+}: {
+  block: blocks.CaptionedImageBlock;
+}) {
   const { meta } = value.image;
 
   return (

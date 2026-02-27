@@ -1,6 +1,6 @@
-import type { breads } from '@/models';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { breads } from '@/models';
 
 interface BreadCardProps {
   bread: breads.BreadPage;

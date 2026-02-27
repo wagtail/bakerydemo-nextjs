@@ -1,8 +1,8 @@
 'use client';
 
-import type { wagtailcore } from '@/models';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { wagtailcore } from '@/models';
 
 type NavigationLinksProps = {
   menuItems: wagtailcore.Page[];

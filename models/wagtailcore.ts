@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // Utility function to remove origin from URL
 const removeOrigin = (url: string): string => {
-  return url.replace(/^(?:https?:\/\/[^\/]+)?/, '');
+  return url.replace(/^(?:https?:\/\/[^/]+)?/, "");
 };
 
 // Base meta fields schema for all models
@@ -24,7 +24,7 @@ const parentMetaSchema = basePageMetaSchema.transform((data) => ({
 
 // Base page schema (without meta to avoid circular reference)
 const basePageSchema = z.object({
-  id: z.number().nullable().nullable(),
+  id: z.number(),
   title: z.string(),
 });
 

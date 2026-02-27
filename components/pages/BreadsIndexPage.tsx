@@ -1,8 +1,8 @@
-import type { breads } from '@/models';
-import type { PageComponentProps } from './types';
 import BreadCard from '@/components/BreadCard';
 import Pagination from '@/components/Pagination';
 import api from '@/lib/api';
+import type { breads } from '@/models';
+import type { PageComponentProps } from './types';
 
 interface BreadsIndexPageProps
   extends PageComponentProps<breads.BreadsIndexPage> {

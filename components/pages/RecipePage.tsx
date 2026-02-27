@@ -1,8 +1,8 @@
-import type { recipes } from '@/models';
-import type { PageComponentProps } from './types';
-import { formatDate } from '@/lib/format';
 import Image from 'next/image';
+import { formatDate } from '@/lib/format';
+import type { recipes } from '@/models';
 import RecipeStreamBlock from '../streamfield/RecipeStreamBlock';
+import type { PageComponentProps } from './types';
 
 export default async function RecipePage({
   page,

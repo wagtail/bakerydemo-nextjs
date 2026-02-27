@@ -1,7 +1,7 @@
 import { z } from 'zod';
+import blocks from './blocks/base';
 import wagtailcore from './wagtailcore';
 import wagtailimages from './wagtailimages';
-import blocks from './blocks/base';
 
 // Operating Hours schema
 const operatingHoursSchema = z.object({
@@ -22,7 +22,7 @@ const locationPageSchema = wagtailcore.Page.extend({
   lat_long: z
     .string()
     .regex(
-      /^((\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?))?$/,
+      /^((-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?))?$/,
       'Lat Long must be a comma-separated numeric lat and long',
     ),
   hours_of_operation: z.array(operatingHoursSchema),

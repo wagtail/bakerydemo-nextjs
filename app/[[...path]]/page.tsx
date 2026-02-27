@@ -1,7 +1,7 @@
-import api from '@/lib/api';
-import { getPageComponent, type PageType } from '@/components/pages';
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { getPageComponent, type PageType } from '@/components/pages';
+import api from '@/lib/api';
 
 interface PageProps {
   params: Promise<{ path?: string[] }>;
@@ -10,7 +10,6 @@ interface PageProps {
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: PageProps): Promise<Metadata> {
   // Convert path array to string path or use root path
   const { path: pathSplit = [] } = await params;

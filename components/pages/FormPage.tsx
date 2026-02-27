@@ -1,6 +1,6 @@
 import type { base } from '@/models';
-import type { PageComponentProps } from './types';
 import BaseStreamBlock from '../streamfield/BaseStreamBlock';
+import type { PageComponentProps } from './types';
 
 export default async function FormPage({
   page,
