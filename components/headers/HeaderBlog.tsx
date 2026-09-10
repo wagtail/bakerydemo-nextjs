@@ -4,10 +4,10 @@ import type { wagtailimages } from '@/models';
 
 interface HeaderBlogProps {
   title: string;
-  subtitle?: string;
-  introduction?: string;
+  subtitle?: string | null;
+  introduction?: string | null;
   date_published?: string | null;
-  image?: wagtailimages.Image | null;
+  image?: wagtailimages.ImageRendition;
 }
 
 export default function HeaderBlog({
@@ -22,10 +22,10 @@ export default function HeaderBlog({
       {image && (
         <div className="container-fluid hero hero--blog">
           <Image
-            src={image.meta.download_url}
-            alt=""
-            width={1920}
-            height={600}
+            src={image.full_url}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
             sizes="100vw"
             className="hero-image"
             priority

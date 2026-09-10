@@ -18,15 +18,15 @@ export default async function BreadsIndexPage({
   const pageSize = 12;
   const offset = (currentPage - 1) * pageSize;
 
-  const { items: breads, meta } = page.id
+  const { items: breads, count } = page.id
     ? await api.getPages('breads.BreadPage', {
         child_of: page.id.toString(),
         limit: pageSize.toString(),
         offset: offset.toString(),
       })
-    : { items: [], meta: { total_count: 0 } };
+    : { items: [], count: 0 };
 
-  const totalPages = Math.ceil(meta.total_count / pageSize);
+  const totalPages = Math.ceil(count / pageSize);
 
   return (
     <>
@@ -39,12 +39,15 @@ export default async function BreadsIndexPage({
               <ListingCard
                 url={bread.meta.html_path}
                 title={bread.title}
-                image={bread.image}
+                image={bread.image_listing}
                 h2
                 meta={[
+                  /* v3 migration: origin (breads.Country) removed from meta -
+                    no snippet API endpoint exists for Country in v3-preview.
                   ...(bread.origin
                     ? [{ label: 'Origin', value: bread.origin.title }]
                     : []),
+                  */
                   ...(bread.bread_type
                     ? [{ label: 'Type', value: bread.bread_type.title }]
                     : []),
@@ -55,7 +58,7 @@ export default async function BreadsIndexPage({
         </ul>
       </div>
 
-      {meta.total_count > pageSize && (
+      {count > pageSize && (
         <div className="container">
           <div className="row">
             <div className="col-sm-12">

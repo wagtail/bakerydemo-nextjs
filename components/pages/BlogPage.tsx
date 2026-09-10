@@ -14,7 +14,7 @@ export default async function BlogPage({
         subtitle={page.subtitle}
         introduction={page.introduction}
         date_published={page.date_published}
-        image={page.image}
+        image={page.image_hero}
       />
 
       <div className="container">

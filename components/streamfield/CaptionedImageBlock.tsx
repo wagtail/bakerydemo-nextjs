@@ -6,15 +6,15 @@ export default function CaptionedImageBlock({
 }: {
   block: blocks.CaptionedImageBlock;
 }) {
-  const { meta } = value.image;
+  const { rendition } = value.image.meta;
 
   return (
     <figure>
       <Image
-        src={meta.download_url}
-        alt={value.image.title}
-        width={640}
-        height={480}
+        src={rendition.full_url}
+        alt={rendition.alt}
+        width={rendition.width}
+        height={rendition.height}
         loading="lazy"
       />
       <figcaption>

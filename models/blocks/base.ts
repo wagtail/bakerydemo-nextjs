@@ -6,7 +6,7 @@ const captionedImageBlockSchema = z.object({
   type: z.literal('image_block'),
   id: z.string(),
   value: z.object({
-    image: wagtailimages.Image,
+    image: wagtailimages.StreamFieldImage,
     caption: z.string().optional(),
     attribution: z.string().optional(),
   }),

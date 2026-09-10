@@ -8,7 +8,7 @@ export default async function StandardPage({
 }: PageComponentProps<base.StandardPage>) {
   return (
     <>
-      <HeaderHero title={page.title} image={page.image} />
+      <HeaderHero title={page.title} image={page.image_hero} />
 
       <div className="container bread-detail">
         <div className="row">

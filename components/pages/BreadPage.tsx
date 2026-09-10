@@ -8,7 +8,7 @@ export default async function BreadPage({
 }: PageComponentProps<breads.BreadPage>) {
   return (
     <>
-      <HeaderHero title={page.title} image={page.image} />
+      <HeaderHero title={page.title} image={page.image_hero} />
 
       <div className="container bread-detail">
         <div className="row">
@@ -29,6 +29,9 @@ export default async function BreadPage({
             <div className="col-md-4 col-md-offset-1">
               <div className="row">
                 <div className="bread-detail__meta">
+                  {/* v3 migration: origin (breads.Country) removed - no
+                  snippet API endpoint exists for Country in v3-preview, so
+                  its title can't be resolved. Was:
                   {page.origin && (
                     <>
                       <p className="bread-detail__meta-title">Origin</p>
@@ -37,6 +40,7 @@ export default async function BreadPage({
                       </p>
                     </>
                   )}
+                  */}
                   {page.bread_type && (
                     <>
                       <p className="bread-detail__meta-title">Type</p>
@@ -51,8 +55,7 @@ export default async function BreadPage({
                       <ul>
                         {page.ingredients.map((ingredient) => (
                           <li key={ingredient.id}>
-                            {ingredient.meta.type ===
-                            'breads.BreadIngredient' ? (
+                            {'name' in ingredient ? (
                               ingredient.name
                             ) : (
                               <span className="bread-detail__meta-ingredient--draft">

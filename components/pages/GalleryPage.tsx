@@ -13,7 +13,7 @@ export default async function GalleryPage({
 
   return (
     <>
-      <HeaderHero title={page.title} image={page.image} />
+      <HeaderHero title={page.title} image={page.image_hero} />
 
       <div className="container gallery__container">
         <div className="row">

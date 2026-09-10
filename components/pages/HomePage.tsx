@@ -42,12 +42,12 @@ export default async function HomePage({
   return (
     <div className="homepage">
       <div className="container-fluid hero">
-        {page.image && (
+        {page.image_hero && (
           <Image
-            src={page.image.meta.download_url}
-            alt=""
-            width={1920}
-            height={900}
+            src={page.image_hero.full_url}
+            alt={page.image_hero.alt}
+            width={page.image_hero.width}
+            height={page.image_hero.height}
             sizes="100vw"
             className="hero-image"
             priority
@@ -88,8 +88,12 @@ export default async function HomePage({
                       <ListingCard
                         url={child.meta.html_path}
                         title={child.title}
-                        image={child.image}
+                        image={child.image_listing}
                         meta={[
+                          /*
+                          v3 migration: origin (breads.Country) removed
+                          from meta - no snippet API endpoint exists for
+                          Country in v3-preview.
                           ...(child.origin
                             ? [
                                 {
@@ -98,6 +102,7 @@ export default async function HomePage({
                                 },
                               ]
                             : []),
+                        */
                           ...(child.bread_type
                             ? [
                                 {
@@ -128,13 +133,13 @@ export default async function HomePage({
                 )}
               </div>
             )}
-            {page.lead_image && (
+            {page.lead_image_promo && (
               <figure>
                 <Image
-                  src={page.lead_image.meta.download_url}
-                  alt={page.lead_image.title}
-                  width={590}
-                  height={413}
+                  src={page.lead_image_promo.full_url}
+                  alt={page.lead_image_promo.alt}
+                  width={page.lead_image_promo.width}
+                  height={page.lead_image_promo.height}
                 />
               </figure>
             )}
@@ -183,7 +188,7 @@ export default async function HomePage({
                       key={child.id}
                       url={child.meta.html_path}
                       title={child.title}
-                      image={child.image!}
+                      image={child.image_picture_card!}
                       portrait
                     />
                   ))}

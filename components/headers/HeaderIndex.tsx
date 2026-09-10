@@ -1,6 +1,6 @@
 interface HeaderIndexProps {
   title: string;
-  introduction?: string;
+  introduction?: string | null;
 }
 
 export default function HeaderIndex({ title, introduction }: HeaderIndexProps) {

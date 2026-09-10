@@ -18,7 +18,8 @@
     "check": "biome check",
     "check:fix": "biome check --write",
     "test": "vitest run --typecheck",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "generate-api": "curl -s ${NEXT_PUBLIC_WAGTAIL_API_HOST:-http://localhost:8000}/api/v3-preview/openapi.json -o lib/generated/openapi.json && typed-openapi lib/generated/openapi.json -r zod --schemas-only --no-runtime-types -o lib/generated/schemas.ts"
   },
   "dependencies": {
     "next": "16.2.9",
@@ -35,6 +36,7 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
     "jsdom": "^30.0.0",
+    "typed-openapi": "^4.0.0",
     "typescript": "^6.0.3",
     "vitest": "^4.0.18"
   }

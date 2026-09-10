@@ -15,7 +15,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { path: pathSplit = [] } = await params;
   const path = `/${pathSplit.join('/')}`;
-  const basicPage = await api.getPage(path, 'wagtailcore.Page');
+  const basicPage = await api.getPage(path);
   return {
     title: basicPage.meta.seo_title || basicPage.title,
     description: basicPage.meta.search_description,
@@ -27,21 +27,12 @@ export default async function Page({ params, searchParams }: PageProps) {
   const path = `/${pathSplit.join('/')}`;
 
   try {
-    // First fetch to get the specific page type
-    const basicPage = await api.getPage(path, 'wagtailcore.Page');
-
-    // Get the specific page type from meta
-    const pageType = basicPage.meta.type as PageType;
-
-    // Check if we have a component for this page type
-    const PageComponent = getPageComponent(pageType);
-
-    // Second fetch to get the full page data with the specific type
-    const page = await api.getPage(basicPage.id, pageType);
+    const page = await api.getPage(path);
+    const PageComponent = getPageComponent(page.meta.type as PageType);
 
     return (
       <>
-        <Breadcrumbs page={basicPage} />
+        <Breadcrumbs page={page} />
         <DynamicUserbar pageId={page.id} />
         <main id="main-content">
           <PageComponent page={page} searchParams={searchParams} />

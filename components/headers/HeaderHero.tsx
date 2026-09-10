@@ -3,7 +3,7 @@ import type { wagtailimages } from '@/models';
 
 interface HeaderHeroProps {
   title: string;
-  image: wagtailimages.Image | null;
+  image?: wagtailimages.ImageRendition;
 }
 
 export default function HeaderHero({ title, image }: HeaderHeroProps) {
@@ -11,10 +11,10 @@ export default function HeaderHero({ title, image }: HeaderHeroProps) {
     return (
       <div className="container-fluid hero">
         <Image
-          src={image.meta.download_url}
-          alt=""
-          width={1920}
-          height={600}
+          src={image.full_url}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
           sizes="100vw"
           className="hero-image"
           priority

@@ -1,36 +1,33 @@
 import { z } from 'zod';
+import {
+  LocationOperatingHoursSchema as GeneratedLocationOperatingHoursSchema,
+  LocationPageSchema as GeneratedLocationPageSchema,
+  LocationsIndexPageSchema as GeneratedLocationsIndexPageSchema,
+} from '@/lib/generated/schemas';
 import blocks from './blocks/base';
-import wagtailcore from './wagtailcore';
+import { withHtmlPath } from './wagtailcore';
 import wagtailimages from './wagtailimages';
 
 // Operating Hours schema
-const operatingHoursSchema = z.object({
-  id: z.number().nullable(),
+const operatingHoursSchema = GeneratedLocationOperatingHoursSchema.extend({
   day: z.enum(['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']),
-  opening_time: z.string().nullable(), // Time as string HH:MM
-  closing_time: z.string().nullable(), // Time as string HH:MM
-  closed: z.boolean(),
 });
 
 // LocationPage schema
-const locationPageSchema = wagtailcore.Page.extend({
-  introduction: z.string(),
+const locationPageSchema = GeneratedLocationPageSchema.extend({
+  meta: withHtmlPath(GeneratedLocationPageSchema.shape.meta),
   image: wagtailimages.Image.nullable(),
   body: blocks.BaseStreamBlock,
   is_open: z.boolean(),
-  address: z.string(),
-  lat_long: z
-    .string()
-    .regex(
-      /^((-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?))?$/,
-      'Lat Long must be a comma-separated numeric lat and long',
-    ),
   hours_of_operation: z.array(operatingHoursSchema),
+  image_hero: wagtailimages.ImageRendition.optional(),
+  image_location_card: wagtailimages.ImageRendition.optional(),
+  image_picture_card: wagtailimages.ImageRendition.optional(),
 });
 
 // LocationsIndexPage schema
-const locationsIndexPageSchema = wagtailcore.Page.extend({
-  introduction: z.string(),
+const locationsIndexPageSchema = GeneratedLocationsIndexPageSchema.extend({
+  meta: withHtmlPath(GeneratedLocationsIndexPageSchema.shape.meta),
   image: wagtailimages.Image.nullable(),
 });
 

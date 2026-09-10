@@ -109,7 +109,7 @@ export default async function PersonPage({
 }: PageComponentProps<people.PersonPage>) {
   return (
     <>
-      <HeaderHero title={page.title} image={page.image} />
+      <HeaderHero title={page.title} image={page.image_hero} />
 
       <div className="container bread-detail">
         <div className="row">
@@ -130,6 +130,9 @@ export default async function PersonPage({
             <div className="col-md-4 col-md-offset-1">
               <div className="row">
                 <div className="bread-detail__meta">
+                  {/* v3 migration: location (breads.Country) removed - no
+                  snippet API endpoint exists for Country in v3-preview, so
+                  its title can't be resolved. Was:
                   {page.location && (
                     <>
                       <p className="bread-detail__meta-title">Location</p>
@@ -138,6 +141,7 @@ export default async function PersonPage({
                       </p>
                     </>
                   )}
+                  */}
                   {page.social_links.length > 0 && (
                     <>
                       <p className="bread-detail__meta-title">Socials</p>

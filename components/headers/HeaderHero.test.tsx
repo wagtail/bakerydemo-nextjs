@@ -3,12 +3,11 @@ import { describe, expect, it } from 'vitest';
 import HeaderHero from '@/components/headers/HeaderHero';
 
 const fakeImage = {
-  id: 1,
-  title: 'Hero image',
-  meta: {
-    type: 'wagtailimages.Image',
-    download_url: '/media/images/hero.jpg',
-  },
+  url: '/media/images/hero.jpg',
+  full_url: 'http://localhost:8000/media/images/hero.jpg',
+  width: 1920,
+  height: 600,
+  alt: 'Hero image',
 };
 
 describe('HeaderHero', () => {
@@ -27,7 +26,7 @@ describe('HeaderHero', () => {
   });
 
   it('renders plain title in grid layout when no image', () => {
-    const { container } = render(<HeaderHero title="Sourdough" image={null} />);
+    const { container } = render(<HeaderHero title="Sourdough" />);
     expect(container.querySelector('.container-fluid')).toBeNull();
     expect(container.querySelector('.hero-image')).toBeNull();
     expect(container.querySelector('.container')).toBeInTheDocument();
@@ -37,9 +36,9 @@ describe('HeaderHero', () => {
     );
   });
 
-  it('sets hero image alt to empty string (decorative)', () => {
+  it('sets hero image alt from the rendition', () => {
     const { container } = render(<HeaderHero title="Test" image={fakeImage} />);
     const img = container.querySelector('img.hero-image');
-    expect(img).toHaveAttribute('alt', '');
+    expect(img).toHaveAttribute('alt', 'Hero image');
   });
 });

@@ -43,4 +43,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# fetched OpenAPI spec (see `npm run generate-api`)
+/lib/generated/openapi.json
+
 bakerydemo

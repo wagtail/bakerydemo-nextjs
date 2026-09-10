@@ -1,112 +1,80 @@
 import { z } from 'zod';
+import {
+  CollectionForeignKeySchema,
+  FormFieldSchema as GeneratedFormFieldSchema,
+  FormPageSchema as GeneratedFormPageSchema,
+  GalleryPageSchema as GeneratedGalleryPageSchema,
+  HomePageSchema as GeneratedHomePageSchema,
+  PersonSchema as GeneratedPersonSchema,
+  StandardPageSchema as GeneratedStandardPageSchema,
+} from '@/lib/generated/schemas';
 import blocks from './blocks/base';
-import wagtailcore from './wagtailcore';
+import { pageLinkSchema, withHtmlPath } from './wagtailcore';
 import wagtailimages from './wagtailimages';
 
 // Person schema
-const personSchema = z.object({
-  id: z.number().nullable(),
-  first_name: z.string().max(254),
-  last_name: z.string().max(254),
-  job_title: z.string().max(254),
+const personSchema = GeneratedPersonSchema.extend({
   image: wagtailimages.Image.nullable(),
-  meta: wagtailcore._BaseMeta,
-});
-
-// Footer Text schema
-const footerTextSchema = z.object({
-  id: z.number().nullable(),
-  body: z.string(),
-  meta: wagtailcore._BaseMeta,
+  image_listing: wagtailimages.ImageRendition.optional(),
 });
 
 // Standard Page schema
-const standardPageSchema = wagtailcore.Page.extend({
-  introduction: z.string(),
+const standardPageSchema = GeneratedStandardPageSchema.extend({
+  meta: withHtmlPath(GeneratedStandardPageSchema.shape.meta),
   image: wagtailimages.Image.nullable(),
   body: blocks.BaseStreamBlock,
+  image_hero: wagtailimages.ImageRendition.optional(),
 });
 
 // Home Page schema
-const homePageSchema = wagtailcore.Page.extend({
+const homePageSchema = GeneratedHomePageSchema.extend({
+  meta: withHtmlPath(GeneratedHomePageSchema.shape.meta),
   image: wagtailimages.Image.nullable(),
-  hero_text: z.string().max(255),
-  hero_cta: z.string().max(255),
-  hero_cta_link: wagtailcore.Page.nullable(),
-  body: blocks.BaseStreamBlock,
   lead_image: wagtailimages.Image.nullable(),
-  lead_title: z.string().max(255),
-  lead_text: z.string().max(1000).nullable(),
-  featured_section_1_title: z.string().max(255),
-  featured_section_1: wagtailcore.Page.nullable(),
-  featured_section_2_title: z.string().max(255),
-  featured_section_2: wagtailcore.Page.nullable(),
-  featured_section_3_title: z.string().max(255),
-  featured_section_3: wagtailcore.Page.nullable(),
+  body: blocks.BaseStreamBlock,
+  hero_cta_link: pageLinkSchema.nullable(),
+  featured_section_1: pageLinkSchema.nullable(),
+  featured_section_2: pageLinkSchema.nullable(),
+  featured_section_3: pageLinkSchema.nullable(),
+  image_hero: wagtailimages.ImageRendition.optional(),
+  lead_image_promo: wagtailimages.ImageRendition.optional(),
 });
 
 // Gallery Page schema
-const galleryPageSchema = wagtailcore.Page.extend({
-  introduction: z.string(),
+const galleryPageSchema = GeneratedGalleryPageSchema.extend({
+  meta: withHtmlPath(GeneratedGalleryPageSchema.shape.meta),
   image: wagtailimages.Image.nullable(),
-  body: z.array(z.any()), // StreamField
-  collection: z
-    .object({
-      id: z.number(),
-    })
-    .nullable(),
+  collection: CollectionForeignKeySchema.extend({
+    id: z.number(),
+  }).nullable(),
+  image_hero: wagtailimages.ImageRendition.optional(),
 });
 
 // Form Field schema
-const formFieldSchema = z.object({
-  id: z.number().nullable(),
-  label: z.string(),
-  field_type: z.string(),
-  required: z.boolean(),
+const formFieldSchema = GeneratedFormFieldSchema.extend({
   choices: z
     .string()
     .nullable()
     .transform((val) => (val || '').split(',')),
-  default_value: z.string().nullable(),
-  help_text: z.string().nullable(),
 });
 
 // Form Page schema
-const formPageSchema = wagtailcore.Page.extend({
+const formPageSchema = GeneratedFormPageSchema.extend({
+  meta: withHtmlPath(GeneratedFormPageSchema.shape.meta),
   image: wagtailimages.Image.nullable(),
-  body: z.array(z.any()), // StreamField
-  thank_you_text: z.string(),
-  from_address: z.union([z.email(), z.literal('')]),
-  to_address: z.union([z.email(), z.literal('')]),
-  subject: z.string(),
+  body: blocks.BaseStreamBlock,
   form_fields: z.array(formFieldSchema),
-});
-
-// Generic Settings schema
-const genericSettingsSchema = z.object({
-  id: z.number().nullable(),
-  mastodon_url: z.url().optional(),
-  github_url: z.url().optional(),
-  organisation_url: z.url().optional(),
-});
-
-// Site Settings schema
-const siteSettingsSchema = z.object({
-  id: z.number().nullable(),
-  title_suffix: z.string().max(255).default('The Wagtail Bakery'),
+  image_hero: wagtailimages.ImageRendition.optional(),
 });
 
 // Export schemas
 const schemas = {
   Person: personSchema,
-  FooterText: footerTextSchema,
   StandardPage: standardPageSchema,
   HomePage: homePageSchema,
   GalleryPage: galleryPageSchema,
   FormField: formFieldSchema,
   FormPage: formPageSchema,
-  GenericSettings: genericSettingsSchema,
-  SiteSettings: siteSettingsSchema,
 } as const;
 
 export default schemas;
@@ -114,12 +82,9 @@ export default schemas;
 // Derived TypeScript types
 export namespace base {
   export type Person = z.infer<typeof schemas.Person>;
-  export type FooterText = z.infer<typeof schemas.FooterText>;
   export type StandardPage = z.infer<typeof schemas.StandardPage>;
   export type HomePage = z.infer<typeof schemas.HomePage>;
   export type GalleryPage = z.infer<typeof schemas.GalleryPage>;
   export type FormField = z.infer<typeof schemas.FormField>;
   export type FormPage = z.infer<typeof schemas.FormPage>;
-  export type GenericSettings = z.infer<typeof schemas.GenericSettings>;
-  export type SiteSettings = z.infer<typeof schemas.SiteSettings>;
 }

@@ -49,7 +49,7 @@ export default async function BlogIndexPage({
                 key={post.id}
                 url={post.meta.html_path}
                 title={post.title}
-                image={post.image}
+                image={post.image_listing}
                 introduction={post.introduction}
                 date_published={post.date_published}
                 authors={post.blog_person_relationship.map(

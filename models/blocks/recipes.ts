@@ -26,7 +26,7 @@ const tableBlockSchema = z.object({
 const typedTableCellSchema = z.union([
   z.string(),
   z.number(),
-  wagtailimages.Image,
+  wagtailimages.StreamFieldImage,
 ]);
 
 // TypedTable schema

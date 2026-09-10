@@ -24,7 +24,7 @@ export default async function LocationsIndexPage({
               key={location.id}
               url={location.meta.html_path}
               title={location.title}
-              image={location.image!}
+              image={location.image_picture_card!}
             />
           ))}
         </div>

@@ -3,12 +3,11 @@ import { describe, expect, it } from 'vitest';
 import HeaderBlog from '@/components/headers/HeaderBlog';
 
 const fakeImage = {
-  id: 1,
-  title: 'Hero image',
-  meta: {
-    type: 'wagtailimages.Image',
-    download_url: '/media/images/hero.jpg',
-  },
+  url: '/media/images/hero.jpg',
+  full_url: 'http://localhost:8000/media/images/hero.jpg',
+  width: 1920,
+  height: 600,
+  alt: 'Hero image',
 };
 
 describe('HeaderBlog', () => {

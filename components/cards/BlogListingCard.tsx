@@ -12,8 +12,8 @@ function truncateWords(text: string, count: number): string {
 interface BlogListingCardProps {
   url: string;
   title: string;
-  image?: wagtailimages.Image | null;
-  introduction?: string;
+  image?: wagtailimages.ImageRendition;
+  introduction?: string | null;
   date_published?: string | null;
   authors?: string[];
 }
@@ -32,10 +32,10 @@ export default function BlogListingCard({
         {image && (
           <figure className="blog-listing-card__image">
             <Image
-              src={image.meta.download_url}
-              alt={image.title}
-              width={322}
-              height={247}
+              src={image.full_url}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
               loading="lazy"
             />
           </figure>

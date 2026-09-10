@@ -74,6 +74,13 @@ describe('BaseStreamBlock schema', () => {
             meta: {
               type: 'wagtailimages.Image',
               download_url: '/img.jpg',
+              rendition: {
+                url: '/img.jpg',
+                full_url: 'http://localhost:8000/img.jpg',
+                width: 800,
+                height: 600,
+                alt: 'Photo',
+              },
             },
           },
           caption: 'A photo',

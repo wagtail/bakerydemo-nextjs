@@ -17,12 +17,12 @@ export default function LocationCard({ location }: LocationCardProps) {
     <div className="location-card col-sm-4">
       <Link className="location-card__link" href={location.meta.html_path}>
         <figure className="location-card__image">
-          {location.image && (
+          {location.image_location_card && (
             <Image
-              src={location.image.meta.download_url}
-              alt={location.image.title}
-              width={430}
-              height={320}
+              src={location.image_location_card.full_url}
+              alt={location.image_location_card.alt}
+              width={location.image_location_card.width}
+              height={location.image_location_card.height}
               sizes="(max-width: 768px) 150px, 400px"
               loading="lazy"
             />

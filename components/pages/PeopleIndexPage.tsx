@@ -18,15 +18,15 @@ export default async function PeopleIndexPage({
   const pageSize = 12;
   const offset = (currentPage - 1) * pageSize;
 
-  const { items: persons, meta } = page.id
+  const { items: persons, count } = page.id
     ? await api.getPages('people.PersonPage', {
         child_of: page.id.toString(),
         limit: pageSize.toString(),
         offset: offset.toString(),
       })
-    : { items: [], meta: { total_count: 0 } };
+    : { items: [], count: 0 };
 
-  const totalPages = Math.ceil(meta.total_count / pageSize);
+  const totalPages = Math.ceil(count / pageSize);
 
   return (
     <>
@@ -39,14 +39,14 @@ export default async function PeopleIndexPage({
               <ListingCard
                 url={person.meta.html_path}
                 title={person.title}
-                image={person.image}
+                image={person.image_listing}
               />
             </li>
           ))}
         </ul>
       </div>
 
-      {meta.total_count > pageSize && (
+      {count > pageSize && (
         <div className="container">
           <div className="row">
             <div className="col-sm-12">

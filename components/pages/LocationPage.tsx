@@ -8,7 +8,7 @@ export default async function LocationPage({
 }: PageComponentProps<locations.LocationPage>) {
   return (
     <>
-      <HeaderHero title={page.title} image={page.image} />
+      <HeaderHero title={page.title} image={page.image_hero} />
 
       <div className="container bread-detail">
         <div className="row">

@@ -2,7 +2,7 @@ import { getMenuItems } from '@/lib/menu';
 import { NavigationLinks } from './NavigationLinks';
 
 export default async function Navigation() {
-  const menuItems = await getMenuItems();
+  const menuItems = await getMenuItems().catch(() => []);
 
   return (
     <header className="header clearfix">
